@@ -1,8 +1,10 @@
 package org.usfirst.frc.team2472.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import subsystems.Flywheel;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,7 +18,10 @@ public class Robot extends IterativeRobot {
 	final String customAuto = "My Auto";
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
+	Flywheel flywhl= new  Flywheel(3);
 
+	
+	Joystick gamepadController = new Joystick (2);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -68,6 +73,17 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
+if(gamepadController.getRawButton(1)) {
+    		
+    		Flywheel.flywhlGo();
+    		
+    	}
+    	
+    	else {
+    		
+    		Flywheel.flywhlStop();		
+    	}
 	}
 
 	/**
