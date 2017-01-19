@@ -1,26 +1,26 @@
 package Subsystem;
 
 import com.ctre.CANTalon;
-import edu.wpi.first.wpilibj.Joystick;
+
+import Constants.Const;
 
 public class Flywheel{
 	
 	static CANTalon flywheelMotor;
 	
-    public Flywheel(int fwm){
+    public Flywheel(){
     	
-    	flywheelMotor = new CANTalon(fwm);
+    	flywheelMotor = new CANTalon(Const.FWheel);
     	
     }
     
-    public static void flywhlGo(){
+    public static void flywhlGo(double spped){
     	
-    	flywheelMotor.set(1.0);
+    	flywheelMotor.set(spped);
     	
     }
     
     public static void flywhlStop(){
-    	
     	flywheelMotor.set(0.0);
     	
     }

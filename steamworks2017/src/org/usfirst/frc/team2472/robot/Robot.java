@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2472.robot;
 
+import Constants.Const;
 import Subsystem.Flywheel;
 import Subsystem.drive;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -12,13 +13,13 @@ public class Robot extends IterativeRobot {
 	final String customAuto = "My Auto";
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
-	Flywheel flywhl= new  Flywheel(3);
+	Flywheel flywhl= new  Flywheel();
 
 	
-	Joystick gamepadController = new Joystick (2);
-	Joystick joyl = new Joystick(0);
-	Joystick joyr = new Joystick(1);
-	public static drive d = new drive(0,1,2,3);
+	Joystick gamepadController = new Joystick (Const.gpad);
+	Joystick joyl = new Joystick(Const.joyl);
+	Joystick joyr = new Joystick(Const.joyr);
+	public static drive d = new drive();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -59,7 +60,7 @@ public class Robot extends IterativeRobot {
 		d.tankDrive(joyl, joyr);
 		if(gamepadController.getRawButton(1)) {
     		
-    		Flywheel.flywhlGo();
+    		Flywheel.flywhlGo(1.0);
     		
     	}
     	

@@ -2,50 +2,46 @@ package Subsystem;
 
 import com.ctre.CANTalon;
 
+import Constants.Const;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 public class drive {
 	CANTalon l1,l2,r1,r2;
-	int left1,left2,right1,right2;
 	RobotDrive d;
-	public drive(int leftmotor1,int leftmotor2,int rightmotor1,int rightmotor2){
-			l1=new CANTalon(leftmotor1);
-			l2=new CANTalon(leftmotor2);
-			r1=new CANTalon(rightmotor1);
-			r2=new CANTalon(rightmotor2);
+	public drive(){
+			l1=new CANTalon(Const.BL);
+			l2=new CANTalon(Const.FL);
+			r1=new CANTalon(Const.BR);
+			r2=new CANTalon(Const.FR);
 			d=new RobotDrive(l1,l2,r1,r2);
-			left1=leftmotor1;
-			left2=leftmotor2;
-			right1=rightmotor1;
-			right2=rightmotor2;
 	}
-	public void runMotor(int motor){
-		if (motor==left1 || motor==left2){
+	public void runMotor(int motor,double spped){
+		if (motor==Const.BL || motor==Const.FL){
 			l1.setInverted(false);
-			l1.set(1.0);
+			l1.set(spped);
 			l1.setInverted(false);
-			l2.set(1.0);
+			l2.set(spped);
 		}
-		else if (motor==right1 || motor==right2){
-			r1.set(1.0);
+		else if (motor==Const.BR || motor==Const.FR){
+			r1.set(spped);
 			r1.setInverted(false);
-			r2.set(1.0);
+			r2.set(spped);
 			r2.setInverted(false);
 		}
 	}
-	public void runMotorReverse(int motor){
-		if(motor==left1 || motor==left2){
+	public void runMotorReverse(int motor,double spped){
+		if(motor==Const.BL || motor==Const.FL){
 			l1.setInverted(true);
-			l1.set(1.0);
+			l1.set(spped);
 			l2.setInverted(true);
-			l2.set(1.0);
+			l2.set(spped);
 		}
-		else if(motor==right1 || motor==right2){
+		else if(motor==Const.BR || motor==Const.FR){
 			r1.setInverted(true);
-			r1.set(1.0);
+			r1.set(spped);
 			r2.setInverted(true);
-			r2.set(1.0);
+			r2.set(spped);
 		}
 	}
 	public void stopMotors(){
