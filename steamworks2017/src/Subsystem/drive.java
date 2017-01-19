@@ -2,11 +2,12 @@ package Subsystem;
 
 import com.ctre.CANTalon;
 
+import Objects.Action;
 import Constants.Const;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
-public class drive {
+public class drive extends Action {
 	CANTalon l1,l2,r1,r2;
 	RobotDrive d;
 	public drive(){

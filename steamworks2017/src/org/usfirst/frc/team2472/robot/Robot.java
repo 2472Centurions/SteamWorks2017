@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2472.robot;
 
+import java.util.ArrayList;
+
 import Constants.Const;
+import Objects.Action;
 import Subsystem.Flywheel;
 import Subsystem.drive;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -14,6 +17,9 @@ public class Robot extends IterativeRobot {
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
 	Flywheel flywhl= new  Flywheel();
+	
+	ArrayList<Action> step = new ArrayList<Action>();
+	ArrayList<Action> stepsecondary = new ArrayList<Action>();
 
 	
 	Joystick gamepadController = new Joystick (Const.gpad);

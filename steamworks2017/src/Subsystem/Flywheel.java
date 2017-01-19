@@ -2,9 +2,10 @@ package Subsystem;
 
 import com.ctre.CANTalon;
 
+import Objects.Action;
 import Constants.Const;
 
-public class Flywheel{
+public class Flywheel extends Action{
 	
 	static CANTalon flywheelMotor;
 	
@@ -22,6 +23,5 @@ public class Flywheel{
     
     public static void flywhlStop(){
     	flywheelMotor.set(0.0);
-    	
     }
 }
