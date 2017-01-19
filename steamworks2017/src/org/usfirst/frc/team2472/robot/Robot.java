@@ -1,11 +1,11 @@
 package org.usfirst.frc.team2472.robot;
 
+import Subsystem.Flywheel;
 import Subsystem.drive;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import subsystems.Flywheel;
 
 public class Robot extends IterativeRobot {
 	final String defaultAuto = "Default";

@@ -1,4 +1,4 @@
-package subsystems;
+package Subsystem;
 
 import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.Joystick;
