@@ -2,7 +2,8 @@ package org.usfirst.frc.team2472.robot;
 
 import java.util.ArrayList;
 
-import Actions.goFoward;
+import com.ctre.CANTalon;
+
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
@@ -15,6 +16,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Steamworks2017
 
 public class Robot extends IterativeRobot {
+	CANTalon flywheelMotor=new CANTalon(Const.FWheel);
+	CANTalon  intakeMotor=new CANTalon(Const.Intake);
+	CANTalon  r2=new CANTalon(Const.BR);
+	CANTalon  r1=new CANTalon(Const.FR);
+	CANTalon  l2=new CANTalon(Const.BL);
+	CANTalon  l1=new CANTalon(Const.FL);
+
 	final String defaultAuto = "Default";
 	final String customAuto = "My Auto";
 	String autoSelected;
@@ -114,6 +122,63 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void testPeriodic() {
+		
+		if(gamepadController.getRawButton(1)){
+			
+			l1.set(1.0);
+			
+		}
+		else if(gamepadController.getRawButton(2)){
+			
+			l2.set(1.0);
+			
+		}
+		else if(gamepadController.getRawButton(3)){
+			
+			r1.set(1.0);
+			
+		}
+		else if(gamepadController.getRawButton(4)){
+			
+			r2.set(1.0);
+			
+		}
+		else if(gamepadController.getRawButton(5)){
+			
+			flywheelMotor.set(1.0);
+			
+		}
+		else if(gamepadController.getRawButton(6)){
+			
+			intakeMotor.set(1.0);
+			
+		}
+		else {
+			
+			d.stopMotors();
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }
 
