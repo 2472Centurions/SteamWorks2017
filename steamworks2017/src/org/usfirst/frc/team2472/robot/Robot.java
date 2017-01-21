@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.ctre.CANTalon;
 
+import Actions.goBackward;
+import Actions.goForward;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
@@ -52,11 +54,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		
+		step.add(new goForward(1.0));
+		stepSecondary.add(new Action());
+		step.add(new goBackward(1.0));
+		stepSecondary.add(new Action());
+		step.add(null);
+		stepSecondary.add(null);
 		
-		//autoSelected = (String) chooser.getSelected();
-		// autoSelected = SmartDashboard.getString("Auto Selector",
-		// defaultAuto);
-		//System.out.println("Auto selected: " + autoSelected);
+		
 		if (step.size() > 0) {
 
 			currentAction = 0;
