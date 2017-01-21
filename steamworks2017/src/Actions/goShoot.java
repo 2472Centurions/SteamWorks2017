@@ -2,19 +2,22 @@ package Actions;
 
 import org.usfirst.frc.team2472.robot.Robot;
 
-import Objects.Action;
+import com.kauailabs.nav6.frc.IMU;
 
-public class goBackward extends Action{
+import Objects.Action;
+import Subsystem.Flywheel;
+
+public class goShoot extends Action{
 	
 	private double speed = .75;
 
-	public goBackward(double time) {
+	public goShoot(double time) {
 
 		timeout = time;
 
 	}
 
-	public goBackward(double time, double speeed) {
+	public goShoot(double time, double speeed) {
 
 		timeout = time;
 
@@ -29,18 +32,15 @@ public class goBackward extends Action{
 	}
 
 	public void periodic() {
-		// goForward method needs a double for speed. 
-	    // It takes the absloute value of the double you give and times it by -1.
 		
-		 Robot.d.goBackward(-1.0);
+		 Flywheel.flywhlGo(1.0);
 		
 		}
 	
 
 	public void endAction() {
 
-		 Robot.d.stopMotors();
-
+		 Flywheel.flywhlStop();
 	}
 	
 	public boolean isFinished(){

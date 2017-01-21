@@ -1,11 +1,11 @@
 package org.usfirst.frc.team2472.robot;
 
 import java.util.ArrayList;
-
 import com.ctre.CANTalon;
-
+import com.kauailabs.nav6.frc.IMUAdvanced;
 import Actions.goBackward;
 import Actions.goForward;
+import Actions.goShoot;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
@@ -51,12 +51,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	
+	
 	@Override
 	public void autonomousInit() {
 		
-		step.add(new goForward(1.0));
-		stepSecondary.add(new Action());
-		step.add(new goBackward(1.0));
+		step.add(new goShoot(15.0));
 		stepSecondary.add(new Action());
 		step.add(null);
 		stepSecondary.add(null);
