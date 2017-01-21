@@ -66,4 +66,22 @@ public class drive extends Action {
 		r2.set(Math.abs(rjoy.getY()));
 	}
 	
+	public void goForward(double spped){
+		
+		l1.set(Math.abs(spped));
+		l2.set(Math.abs(spped));
+		r1.set(Math.abs(spped));
+		r2.set(Math.abs(spped));
+		
+	}
+	
+public void goBackward(double spped){
+		
+		l1.set(Math.abs(spped)*-1);
+		l2.set(Math.abs(spped)*-1);
+		r1.set(Math.abs(spped)*-1);
+		r2.set(Math.abs(spped)*-1);
+		
+	}
+	
 }
