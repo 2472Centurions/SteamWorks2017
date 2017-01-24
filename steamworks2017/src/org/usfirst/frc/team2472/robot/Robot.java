@@ -12,6 +12,7 @@ import Subsystem.Flywheel;
 import Subsystem.drive;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -38,6 +39,11 @@ public class Robot extends IterativeRobot {
 	Joystick gamepadController = new Joystick (Const.gpad);
 	Joystick joyl = new Joystick(Const.joyl);
 	Joystick joyr = new Joystick(Const.joyr);
+	
+	SerialPort serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
+	byte update_rate_hz = 50;
+	public static IMUAdvanced imu;
+	
 	public static drive d = new drive();
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -48,13 +54,13 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Default Auto", defaultAuto);
 		chooser.addObject("My Auto", customAuto);
 		SmartDashboard.putData("Auto choices", chooser);
+		imu = new IMUAdvanced(serial_port, update_rate_hz);
 	}
 
 	
 	
 	@Override
 	public void autonomousInit() {
-		
 		step.add(new goShoot(15.0));
 		stepSecondary.add(new Action());
 		step.add(null);

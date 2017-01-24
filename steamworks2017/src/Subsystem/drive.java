@@ -84,5 +84,22 @@ public void goBackward(double spped){
 		
 	}
 
+    public void turnleft(){
+    	
+    	l1.set(0.8);
+    	l2.set(0.8);
+    	r1.set(1.0);
+    	r2.set(1.0);
+    	
+    }
+    
+public void turnright(){
+    	
+    	l1.set(0.8);
+    	l2.set(0.8);
+    	r1.set(1.0);
+    	r2.set(1.0);
+    	
+    }
 	
 }

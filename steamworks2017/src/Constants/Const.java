@@ -2,7 +2,7 @@ package Constants;
 
 public class Const {
 	public static final String spped = "FAST";//we need this i promise
-	/**drive motors*/
+/**drive motors*/
 	public static final int BL = 1;
 	public static final int FL = 2;
 	public static final int BR = 3;
@@ -15,4 +15,6 @@ public class Const {
 	public static final int joyl = 0;
 	public static final int joyr = 0;
 	public static final int box = 0;
+	/**other controller stuffs*/
+	public static final double dead = 5.0;
 }
