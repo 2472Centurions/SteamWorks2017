@@ -7,21 +7,21 @@ import Constants.Const;
 
 public class Flywheel extends Action{
 	
-	static CANTalon flywheelMotor;
+	 CANTalon flywheelMotor;
 	
-    public Flywheel(){
+    public Flywheel(int number){
     	
-    	flywheelMotor = new CANTalon(Const.FWheel);
+    	flywheelMotor = new CANTalon(number);
     	
     }
     
-    public static void flywhlGo(double spped){
+    public void flywhlGo(double spped){
     	
     	flywheelMotor.set(spped);
     	
     }
     
-    public static void flywhlStop(){
+    public void flywhlStop(){
     	flywheelMotor.set(0.0);
     }
 }

@@ -7,10 +7,13 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
+import Subsystem.drive;
 
 public class goDriveStraight extends Action{
 	
 	private double speed = .75;
+	
+	drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 
 	public goDriveStraight(double time) {
 		
@@ -36,17 +39,17 @@ public class goDriveStraight extends Action{
 		
 		  if(Robot.imu.getYaw() <5.0 && Robot.imu.getYaw() >180.0){
 			 
-			 Robot.d.turnleft();
+			 d.turnleft();
 			 
 		 }
 		 else if(Robot.imu.getYaw() >180.0){
 			 
-			 Robot.d.turnright();
+			 d.turnright();
 			 
 		 }
 		 else {
 			 
-			 Robot.d.goForward(1.0);
+			 d.goForward(1.0);
 			 
 		 }
 		 
@@ -57,7 +60,7 @@ public class goDriveStraight extends Action{
 
 	public void endAction() {
 
-		 Robot.d.stopMotors();;
+		 d.stopMotors();;
 	}
 	
 	public boolean isFinished(){

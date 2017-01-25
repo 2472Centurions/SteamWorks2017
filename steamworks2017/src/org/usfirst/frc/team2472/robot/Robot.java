@@ -9,6 +9,7 @@ import Actions.goShoot;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
+import Subsystem.Intake;
 import Subsystem.drive;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,39 +22,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	CANTalon flywheelMotor=new CANTalon(Const.FWheel);
 	CANTalon  intakeMotor=new CANTalon(Const.Intake);
-	CANTalon  r2=new CANTalon(Const.BR);
-	CANTalon  r1=new CANTalon(Const.FR);
-	CANTalon  l2=new CANTalon(Const.BL);
-	CANTalon  l1=new CANTalon(Const.FL);
-
-	final String defaultAuto = "Default";
-	final String customAuto = "My Auto";
-	String autoSelected;
-	SendableChooser<String> chooser = new SendableChooser<>();
-	Flywheel flywhl= new  Flywheel();
+	drive d = new drive(Const.FL,Const.FR,Const.BL,Const.BR);
+    Intake i = new Intake(Const.Intake);
+    public static Flywheel f = new Flywheel(Const.FWheel);
 	
 	ArrayList<Action> step = new ArrayList<Action>();
 	ArrayList<Action> stepSecondary = new ArrayList<Action>();
 	int currentAction = 0;
 	
 	Joystick gamepadController = new Joystick (Const.gpad);
-	Joystick joyl = new Joystick(Const.joyl);
+	Joystick joyl = new Joystick(Const.joyl); 
 	Joystick joyr = new Joystick(Const.joyr);
 	
 	SerialPort serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
 	byte update_rate_hz = 50;
 	public static IMUAdvanced imu;
 	
-	public static drive d = new drive();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
-		chooser.addDefault("Default Auto", defaultAuto);
-		chooser.addObject("My Auto", customAuto);
-		SmartDashboard.putData("Auto choices", chooser);
 		imu = new IMUAdvanced(serial_port, update_rate_hz);
 	}
 
@@ -120,13 +110,23 @@ public class Robot extends IterativeRobot {
 		d.tankDrive(joyl, joyr);
 		if(gamepadController.getRawButton(1)) {
     		
-    		Flywheel.flywhlGo(1.0);
+    		f.flywhlGo(1.0);
     		
     	}
     	
     	else {
     		
-    		Flywheel.flywhlStop();		
+    			f.flywhlStop();	
+    	}
+        if(gamepadController.getRawButton(2)) {
+    		
+    		i.intakeGo(1.0);
+    		
+    	}
+    	
+    	else {
+    		
+    			i.intakeStop();
     	}
 	}
 	
@@ -135,60 +135,42 @@ public class Robot extends IterativeRobot {
 		
 		if(gamepadController.getRawButton(1)){
 			
-			l1.set(1.0);
+			d.runBL();
 			
 		}
 		else if(gamepadController.getRawButton(2)){
 			
-			l2.set(1.0);
+			d.runFL();
 			
 		}
 		else if(gamepadController.getRawButton(3)){
 			
-			r1.set(1.0);
+			d.runBR();
 			
 		}
 		else if(gamepadController.getRawButton(4)){
 			
-			r2.set(1.0);
+			d.runFR();
 			
 		}
 		else if(gamepadController.getRawButton(5)){
 			
-			flywheelMotor.set(1.0);
+			f.flywhlGo(1.0);
 			
 		}
 		else if(gamepadController.getRawButton(6)){
 			
-			intakeMotor.set(1.0);
+			i.intakeGo(1.0);
 			
 		}
 		else {
 			
 			d.stopMotors();
-			
+			f.flywhlStop();
+			i.intakeStop();
 		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		//WHOA TECHNOLOGY
 	}
 }
 

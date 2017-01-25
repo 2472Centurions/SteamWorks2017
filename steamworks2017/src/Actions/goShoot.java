@@ -33,14 +33,15 @@ public class goShoot extends Action{
 
 	public void periodic() {
 		
-		 Flywheel.flywhlGo(1.0);
+		 Robot.f.flywhlGo(1.0);
 		
 		}
 	
 
 	public void endAction() {
-
-		 Flywheel.flywhlStop();
+		
+		Robot.f.flywhlStop();
+		 
 	}
 	
 	public boolean isFinished(){

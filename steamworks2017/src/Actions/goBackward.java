@@ -1,12 +1,15 @@
 package Actions;
 
 import org.usfirst.frc.team2472.robot.Robot;
-
+import Constants.Const;
 import Objects.Action;
+import Subsystem.drive;
 
 public class goBackward extends Action{
 	
 	private double speed = .75;
+	
+	drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 
 	public goBackward(double time) {
 
@@ -32,14 +35,14 @@ public class goBackward extends Action{
 		// goForward method needs a double for speed. 
 	    // It takes the absloute value of the double you give and times it by -1.
 		
-		 Robot.d.goBackward(-1.0);
+		 d.goBackward(-1.0);
 		
 		}
 	
 
 	public void endAction() {
 
-		 Robot.d.stopMotors();
+		 d.stopMotors();
 
 	}
 	
@@ -62,7 +65,6 @@ public class goBackward extends Action{
 	}
 		
 	
-
 
 
 

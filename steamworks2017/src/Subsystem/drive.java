@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class drive extends Action {
 	CANTalon l1,l2,r1,r2;
 	RobotDrive d;
-	public drive(){
-			l1=new CANTalon(Const.BL);
-			l2=new CANTalon(Const.FL);
-			r1=new CANTalon(Const.BR);
-			r2=new CANTalon(Const.FR);
+	public drive(int flm, int frm, int blm, int brm){
+			l1=new CANTalon(blm);
+			l2=new CANTalon(flm);
+			r1=new CANTalon(brm);
+			r2=new CANTalon(frm);
 			d=new RobotDrive(l1,l2,r1,r2);
 	}
 	public void runMotor(int motor,double spped){
@@ -101,5 +101,21 @@ public void turnright(){
     	r2.set(1.0);
     	
     }
+public void runFR(){
+	r2.set(1.0);
 	
 }
+public void runBR(){
+	r1.set(1.0);
+	
+}
+public void runFL(){
+	l2.set(1.0);
+	
+}
+public void runBL(){
+	l1.set(1.0);
+	
+}
+}
+	

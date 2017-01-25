@@ -6,21 +6,21 @@ import Constants.Const;
 import Objects.Action;
 
 public class Intake extends Action {
-static CANTalon intakeMotor;
+    CANTalon intakeMotor;
 	
-    public Intake(){
+    public Intake(int stillMaybeAnumber){
     	
-    	intakeMotor = new CANTalon(Const.Intake);
+    	intakeMotor = new CANTalon(stillMaybeAnumber);
     	
     }
     
-    public static void intakeGo(double spped){
+    public void intakeGo(double spped){
     	
     	intakeMotor.set(spped);
     	
     }
     
-    public static void intakeStop(){
+    public  void intakeStop(){
     	intakeMotor.set(0.0);
     }
 }
