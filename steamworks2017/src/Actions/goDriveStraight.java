@@ -11,9 +11,8 @@ import Subsystem.drive;
 
 public class goDriveStraight extends Action{
 	
-	private double speed = .75;
+	private double speed = 0.75;
 	
-	drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 
 	public goDriveStraight(double time) {
 		
@@ -39,17 +38,17 @@ public class goDriveStraight extends Action{
 		
 		  if(Robot.imu.getYaw() <5.0 && Robot.imu.getYaw() >180.0){
 			 
-			 d.turnleft();
+			 Robot.d.turnleft();
 			 
 		 }
 		 else if(Robot.imu.getYaw() >180.0){
 			 
-			 d.turnright();
+			 Robot.d.turnright();
 			 
 		 }
 		 else {
 			 
-			 d.goForward(1.0);
+			 Robot.d.setAllMotors(speed);
 			 
 		 }
 		 
@@ -60,7 +59,7 @@ public class goDriveStraight extends Action{
 
 	public void endAction() {
 
-		 d.stopMotors();;
+		 Robot.d.stopMotors();
 	}
 	
 	public boolean isFinished(){

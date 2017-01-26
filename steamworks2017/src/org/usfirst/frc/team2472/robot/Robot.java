@@ -20,10 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Steamworks2017
 
 public class Robot extends IterativeRobot {
-	CANTalon flywheelMotor=new CANTalon(Const.FWheel);
-	CANTalon  intakeMotor=new CANTalon(Const.Intake);
-	drive d = new drive(Const.FL,Const.FR,Const.BL,Const.BR);
-    Intake i = new Intake(Const.Intake);
+	public static drive d = new drive(Const.FL,Const.FR,Const.BL,Const.BR);
+	public static Intake i = new Intake(Const.Intake);
     public static Flywheel f = new Flywheel(Const.FWheel);
 	
 	ArrayList<Action> step = new ArrayList<Action>();
