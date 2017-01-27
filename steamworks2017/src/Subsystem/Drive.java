@@ -7,10 +7,10 @@ import Constants.Const;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
-public class drive extends Action {
+public class Drive extends Action {
 	CANTalon l1,l2,r1,r2;
 	RobotDrive d;
-	public drive(int flm, int frm, int blm, int brm){
+	public Drive(int flm, int frm, int blm, int brm){
 			l1=new CANTalon(blm);
 			l2=new CANTalon(flm);
 			r1=new CANTalon(brm);

@@ -10,7 +10,7 @@ import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
 import Subsystem.Intake;
-import Subsystem.drive;
+import Subsystem.Drive;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Steamworks2017
 
 public class Robot extends IterativeRobot {
-	public static drive d = new drive(Const.FL,Const.FR,Const.BL,Const.BR);
+	public static Drive d = new Drive(Const.FL,Const.FR,Const.BL,Const.BR);
 	public static Intake i = new Intake(Const.Intake);
     public static Flywheel f = new Flywheel(Const.FWheel);
 	

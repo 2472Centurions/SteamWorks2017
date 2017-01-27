@@ -16,5 +16,5 @@ public class Const {
 	public static final int joyr = 0;
 	public static final int box = 0;
 	/**other controller stuffs*/
-	public static final double dead = 5.0;
+	public static final double deadZone = 5.0;
 }
