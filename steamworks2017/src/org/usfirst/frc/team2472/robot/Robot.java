@@ -11,6 +11,7 @@ import Objects.Action;
 import Subsystem.Flywheel;
 import Subsystem.Intake;
 import Subsystem.Drive;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -23,6 +24,7 @@ public class Robot extends IterativeRobot {
 	public static Drive d = new Drive(Const.FL,Const.FR,Const.BL,Const.BR);
 	public static Intake i = new Intake(Const.Intake);
     public static Flywheel f = new Flywheel(Const.FWheel);
+    public static Encoder enc = new Encoder(0,1,false,Encoder.EncodingType.k4X);
 	
 	ArrayList<Action> step = new ArrayList<Action>();
 	ArrayList<Action> stepSecondary = new ArrayList<Action>();

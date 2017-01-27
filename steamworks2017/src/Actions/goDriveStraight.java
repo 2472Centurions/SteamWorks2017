@@ -12,14 +12,13 @@ import Subsystem.Drive;
 public class goDriveStraight extends Action{
 	
 	private double speed = 0.75;
-	
 
 	public goDriveStraight(double time) {
-		
+
 		timeout = time;
 
-	}
 
+	}
 	public goDriveStraight(double time, double speeed) {
 
 		timeout = time;
