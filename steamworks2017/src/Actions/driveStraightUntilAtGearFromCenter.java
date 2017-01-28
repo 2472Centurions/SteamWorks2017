@@ -4,16 +4,15 @@ import org.usfirst.frc.team2472.robot.Robot;
 
 import Objects.Action;
 
-public class driveStraightUntilAtGear extends Action {
-double gearDistance=75.5;//The gear dropoff is 78.5 in. away.
+public class driveStraightUntilAtGearFromCenter extends Action {
+private double gearDistance=109;//The gear dropoff is 112 in. away.
 private double speed=0.75;
-	public driveStraightUntilAtGear(double time) {
+	public driveStraightUntilAtGearFromCenter(double time) {
 	
 	timeout=time;
 	
-
 	}
-	public driveStraightUntilAtGear(double time,double giveSpeed) {
+	public driveStraightUntilAtGearFromCenter(double time,double giveSpeed) {
 		
 		timeout=time;
 		speed= giveSpeed;
