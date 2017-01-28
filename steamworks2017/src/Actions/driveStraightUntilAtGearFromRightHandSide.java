@@ -9,21 +9,18 @@ import Objects.Action;
 public class driveStraightUntilAtGearFromRightHandSide extends Action {
 	private double gearDistance = 109;// The gear dropoff is 112 in. away.
 	private float gearAngle = 45f;
-	private double speed = 0.75;
+	private double spped = 0.75;
 	private int part = 1;
-	IMUAdvanced imu;
-	public driveStraightUntilAtGearFromRightHandSide(double time, IMUAdvanced i) {
+	public driveStraightUntilAtGearFromRightHandSide(double time) {
 
-		imu = i;
 		timeout = time;
 
 	}
 
-	public driveStraightUntilAtGearFromRightHandSide(double time, double giveSpeed, IMUAdvanced i) {
-
-		imu = i;
+	public driveStraightUntilAtGearFromRightHandSide(double time, double giveSpped) {
+		
 		timeout = time;
-		speed = giveSpeed;
+		spped = giveSpped;
 	}
 
 	public void startAction() {
@@ -57,7 +54,7 @@ public class driveStraightUntilAtGearFromRightHandSide extends Action {
 		if (part == 1) {
 			if (Robot.enc.getDistance() < gearDistance) {
 
-				Robot.d.setAllMotors(speed);
+				Robot.d.setAllMotors(spped);
 
 			} else {
 
@@ -66,7 +63,7 @@ public class driveStraightUntilAtGearFromRightHandSide extends Action {
 			}
 		}
 		if(part==2){
-			if(imu.getYaw()<gearAngle){
+			if(Robot.imu.getYaw()<gearAngle){
 				Robot.d.turnleft();
 			}
 			else{

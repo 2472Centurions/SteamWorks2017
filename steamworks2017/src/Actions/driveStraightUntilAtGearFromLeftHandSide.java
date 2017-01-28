@@ -11,19 +11,16 @@ public class driveStraightUntilAtGearFromLeftHandSide extends Action {
 	private float gearAngle = -45f;
 	private double speed = 0.75;
 	private int part = 1;
-	IMUAdvanced imu;
-	public driveStraightUntilAtGearFromLeftHandSide(double time, IMUAdvanced i) {
+	public driveStraightUntilAtGearFromLeftHandSide(double time) {
 
-		imu = i;
 		timeout = time;
 
 	}
 
-	public driveStraightUntilAtGearFromLeftHandSide(double time, double giveSpeed, IMUAdvanced i) {
+	public driveStraightUntilAtGearFromLeftHandSide(double time, double giveSpped) {
 
-		imu = i;
 		timeout = time;
-		speed = giveSpeed;
+		speed = giveSpped;
 	}
 
 	public void startAction() {
@@ -66,7 +63,7 @@ public class driveStraightUntilAtGearFromLeftHandSide extends Action {
 			}
 		}
 		if(part==2){
-			if(imu.getYaw()>gearAngle){
+			if(Robot.imu.getYaw()>gearAngle){
 				Robot.d.turnright();
 			}
 			else{
