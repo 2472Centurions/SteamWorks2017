@@ -33,7 +33,7 @@ public class goShoot extends Action{
 
 	public void periodic() {
 		
-		 Robot.f.flywhlGo(1.0);
+		 Robot.f.flywhlGo(speed);
 		
 		}
 	

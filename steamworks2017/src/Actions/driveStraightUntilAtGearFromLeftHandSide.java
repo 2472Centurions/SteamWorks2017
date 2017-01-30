@@ -4,6 +4,7 @@ import org.usfirst.frc.team2472.robot.Robot;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
+import Constants.Const;
 import Objects.Action;
 
 public class driveStraightUntilAtGearFromLeftHandSide extends Action {
@@ -11,6 +12,7 @@ public class driveStraightUntilAtGearFromLeftHandSide extends Action {
 	private float gearAngle = -45f;
 	private double speed = 0.75;
 	private int part = 1;
+
 	public driveStraightUntilAtGearFromLeftHandSide(double time) {
 
 		timeout = time;
@@ -52,23 +54,34 @@ public class driveStraightUntilAtGearFromLeftHandSide extends Action {
 
 	public void periodic() {
 		if (part == 1) {
-			if (Robot.enc.getDistance() < gearDistance) {
+			if (Robot.motorEnc.getDistance() < gearDistance) {
 
-				Robot.d.setAllMotors(speed);
+				if (Robot.imu.getYaw() > Const.deadZone && Robot.imu.getYaw() < 180.0) {
 
+					Robot.d.turnleft();
+
+				} else if (Robot.imu.getYaw() > 180.0 && Robot.imu.getYaw() < 360.0 - Const.deadZone) {
+
+					Robot.d.turnright();
+
+				} else {
+
+					Robot.d.setAllMotors(speed);
+
+				}
 			} else {
 
 				Robot.d.stopMotors();
-				part=2;
+				part = 2;
 			}
+
 		}
-		if(part==2){
-			if(Robot.imu.getYaw()>gearAngle){
+		if (part == 2) {
+			if (Robot.imu.getYaw() > gearAngle) {
 				Robot.d.turnright();
-			}
-			else{
+			} else {
 				Robot.d.stopMotors();
-				part=3;
+				part = 3;
 			}
 		}
 

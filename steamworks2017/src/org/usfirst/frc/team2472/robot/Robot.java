@@ -24,8 +24,9 @@ public class Robot extends IterativeRobot {
 	public static Drive d = new Drive(Const.FL,Const.FR,Const.BL,Const.BR);
 	public static Intake i = new Intake(Const.Intake);
     public static Flywheel f = new Flywheel(Const.FWheel);
-    public static Encoder enc = new Encoder(0,1,false,Encoder.EncodingType.k4X);
-	
+    public static Encoder motorEnc = new Encoder(Const.motorEncChanA,Const.motorEncChanB,false,Encoder.EncodingType.k4X);
+    public static Encoder shooterEnc = new Encoder(Const.shooterEncChanA,Const.shooterEncChanB,false,Encoder.EncodingType.k4X);
+    
 	ArrayList<Action> step = new ArrayList<Action>();
 	ArrayList<Action> stepSecondary = new ArrayList<Action>();
 	int currentAction = 0;
