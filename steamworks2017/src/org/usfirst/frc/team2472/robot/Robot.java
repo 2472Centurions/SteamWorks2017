@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import com.ctre.CANTalon;
 import com.kauailabs.nav6.frc.IMUAdvanced;
 import Actions.goBackward;
-import Actions.goForward;
+import Actions.goDriveStraight;
+import Actions.goSpin;
 import Actions.goShoot;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
 import Subsystem.Intake;
-import Subsystem.Drive;
+import Subsystem.drive;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Steamworks2017
 
 public class Robot extends IterativeRobot {
-	public static Drive d = new Drive(Const.FL,Const.FR,Const.BL,Const.BR);
+	public static drive d = new drive(Const.FL,Const.FR,Const.BL,Const.BR);
 	public static Intake i = new Intake(Const.Intake);
     public static Flywheel f = new Flywheel(Const.FWheel);
     public static Encoder motorEnc = new Encoder(Const.motorEncChanA,Const.motorEncChanB,false,Encoder.EncodingType.k4X);
@@ -52,7 +53,7 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		step.add(new goShoot(15.0));
+		step.add(new goDriveStraight(1.0));
 		stepSecondary.add(new Action());
 		step.add(null);
 		stepSecondary.add(null);

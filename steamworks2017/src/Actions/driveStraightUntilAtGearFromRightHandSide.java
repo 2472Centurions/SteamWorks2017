@@ -55,11 +55,11 @@ public class driveStraightUntilAtGearFromRightHandSide extends Action {
 	public void periodic() {
 		if (part == 1) {
 			if (Robot.motorEnc.getDistance() < gearDistance) {
-				if (Robot.imu.getYaw() > Const.deadZone && Robot.imu.getYaw() < 180.0) {
+				if (Robot.imu.getYaw() > Const.deadZone) {
 
 					Robot.d.turnleft();
 
-				} else if (Robot.imu.getYaw() > 180.0 && Robot.imu.getYaw() < 360.0 - Const.deadZone) {
+				} else if (Robot.imu.getYaw()>-Const.deadZone) {
 
 					Robot.d.turnright();
 

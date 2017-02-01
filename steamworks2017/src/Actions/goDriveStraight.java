@@ -7,7 +7,7 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
-import Subsystem.Drive;
+import Subsystem.drive;
 
 public class goDriveStraight extends Action {
 
@@ -30,23 +30,23 @@ public class goDriveStraight extends Action {
 	public void startAction() {
 
 		super.startAction();
-
+		Robot.imu.zeroYaw();
 	}
 
 	public void periodic() {
 
-		if (Robot.imu.getYaw() > Const.deadZone && Robot.imu.getYaw() < 180.0) {
+		if (Robot.imu.getYaw() > Const.deadZone) {
 
 			Robot.d.turnleft();
-
-		} else if (Robot.imu.getYaw() > 180.0 && Robot.imu.getYaw() < 360.0 - Const.deadZone) {
+			System.out.println("<="+Robot.imu.getYaw());
+		} else if (Robot.imu.getYaw()>-Const.deadZone) {
 
 			Robot.d.turnright();
-
+			System.out.println("=>"+Robot.imu.getYaw());
 		} else {
 
 			Robot.d.setAllMotors(speed);
-
+			System.out.println("||"+Robot.imu.getYaw());
 		}
 
 	}

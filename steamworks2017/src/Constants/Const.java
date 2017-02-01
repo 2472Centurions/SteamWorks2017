@@ -17,7 +17,7 @@ public class Const {
 	public static final int box = 0;
 	/**other controller stuffs*/
 	//This is half of the deadzone
-	public static final double deadZone = 5.0;
+	public static final double deadZone = 2.0;
 	/**encoder channels*/
 	public static final int motorEncChanA = 0;
 	public static final int motorEncChanB = 1;

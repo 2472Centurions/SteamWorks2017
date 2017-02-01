@@ -30,13 +30,12 @@ public class driveStraightUntilAtGearFromCenter extends Action {
 
 	public void periodic() {
 		if (Robot.motorEnc.getDistance() < gearDistance) {
-			
-			if (Robot.imu.getYaw() > Const.deadZone && Robot.imu.getYaw() < 180.0) {
+			if (Robot.imu.getYaw() > Const.deadZone) {
 
 				Robot.d.turnleft();
 
-			} else if (Robot.imu.getYaw() > 180.0 && Robot.imu.getYaw() < 360.0 - Const.deadZone) {
-				
+			} else if (Robot.imu.getYaw()>-Const.deadZone) {
+
 				Robot.d.turnright();
 
 			} else {
@@ -44,7 +43,6 @@ public class driveStraightUntilAtGearFromCenter extends Action {
 				Robot.d.setAllMotors(speed);
 
 			}
-
 		} else {
 
 			Robot.d.stopMotors();
