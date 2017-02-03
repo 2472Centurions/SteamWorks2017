@@ -9,15 +9,13 @@ import edu.wpi.first.wpilibj.RobotDrive;
 
 public class drive extends Action {
 	CANTalon l1,l2,r1,r2;
-	RobotDrive d;
 	public drive(int flm, int frm, int blm, int brm){
 			l1=new CANTalon(blm);
 			l2=new CANTalon(flm);
 			r1=new CANTalon(brm);
 			r2=new CANTalon(frm);
-			l1.setInverted(true);
-			l2.setInverted(true);
-			d=new RobotDrive(l1,l2,r1,r2);
+			r1.setInverted(true);
+			r2.setInverted(true);
 	}
 	public void runMotor(int motor,double spped){
 		if (motor==Const.BL || motor==Const.FL){
@@ -62,12 +60,12 @@ public class drive extends Action {
 	}
 	
 
-    public void turnleft(){
+    public void turn(double Lspeed,double Rspeed){
     	
-    	l1.set(0.8);
-    	l2.set(0.8);
-    	r1.set(1.0);
-    	r2.set(1.0);
+    	l1.set(Lspeed);
+    	l2.set(Lspeed);
+    	r1.set(Rspeed);
+    	r2.set(Rspeed);
     	
     }
 public void spin(){
@@ -79,14 +77,6 @@ public void spin(){
     	
     }
     
-public void turnright(){
-    	
-    	l1.set(0.8);
-    	l2.set(0.8);
-    	r1.set(1.0);
-    	r2.set(1.0);
-    	
-    }
 public void runFR(){
 	r2.set(1.0);
 	
