@@ -6,8 +6,8 @@ import Objects.Action;
 
 public class goOrientThySelf extends Action {
 
-	private double speed = 0.5;
-	private double angle = 45.0;
+	private double speed = 0.8;
+	private double angle = 180.0;
 
 	public goOrientThySelf(double time) {
 
@@ -30,16 +30,16 @@ public class goOrientThySelf extends Action {
 	}
 
 	public void periodic() {
-
+		// Set one side to (angle-yaw)/angle. It sets the other to
 		if (angle > 0) {
 
-			Robot.d.turn(((angle - Robot.imu.getYaw())) * speed, ((angle - Robot.imu.getYaw())) * -speed);
-			System.out.println(Robot.imu.getYaw()+"     "+((angle - Robot.imu.getYaw())) * speed);
+			Robot.d.turn((((angle - Robot.imu.getYaw())/angle) * speed)+.01, (((angle - Robot.imu.getYaw())/angle) * -speed)-.01);
+			System.out.println(Robot.imu.getYaw() + "     " + ((angle - Robot.imu.getYaw())/angle) * speed);
 		}
 		if (angle < 0) {
-			
-			Robot.d.turn(((angle + Robot.imu.getYaw())) * speed, ((angle - Robot.imu.getYaw())) * -speed);
-			System.out.println(Robot.imu.getYaw()+"     "+((angle + Robot.imu.getYaw())) * speed);
+
+			Robot.d.turn((((angle - Robot.imu.getYaw())/angle) * -speed)-.01, (((angle - Robot.imu.getYaw())/angle) * speed)+.01);
+			System.out.println(Robot.imu.getYaw() + "     " + ((angle + Robot.imu.getYaw())/angle) * speed);
 		}
 	}
 

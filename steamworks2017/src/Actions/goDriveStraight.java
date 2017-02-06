@@ -11,7 +11,7 @@ import Subsystem.drive;
 
 public class goDriveStraight extends Action {
 
-	private double speed = 0.75;
+	private double speed = 0.5;
 
 	public goDriveStraight(double time) {
 
@@ -37,13 +37,13 @@ public class goDriveStraight extends Action {
 
 		if (Robot.imu.getYaw() > 0 || Robot.imu.getYaw() == 0) {
 			
-			Robot.d.turn((Math.abs(Robot.imu.getYaw()-180)/200.0)* speed,speed);
+			Robot.d.turn((Math.abs(Robot.imu.getYaw()-180)/210.0)* speed,speed);
 			System.out.println("=>"+Robot.imu.getYaw()+"    "+(Math.abs(Math.abs(Robot.imu.getYaw())-180)/210.0)* speed);
 		}
 
 		if (Robot.imu.getYaw() < 0) {
 				
-				Robot.d.turn(speed,Math.abs(Robot.imu.getYaw()+180)/200.0* speed);
+				Robot.d.turn(speed,Math.abs(Robot.imu.getYaw()+180)/210.0* speed);
 				System.out.println("<="+Robot.imu.getYaw()+"    "+(Math.abs(Math.abs(Robot.imu.getYaw())-180)/210.0)* speed);}
 	}
 
