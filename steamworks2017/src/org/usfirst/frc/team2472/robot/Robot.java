@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
 			shooterEnc = new Encoder(Const.shooterEncChanA, Const.shooterEncChanB, false, Encoder.EncodingType.k4X);
 		} catch (Exception e) {
 
-			System.out.println("Shooter Encoder is broken");
+			System.out.println("Shooter Encoder is broken.");
 
 		}
 	}
