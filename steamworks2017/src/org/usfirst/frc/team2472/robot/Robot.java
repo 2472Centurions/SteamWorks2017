@@ -5,6 +5,7 @@ import com.ctre.CANTalon;
 import com.kauailabs.nav6.frc.IMUAdvanced;
 import Actions.goBackward;
 import Actions.goDriveStraight;
+import Actions.goOrientThySelf;
 import Actions.goSpin;
 import Actions.goShoot;
 import Constants.Const;
@@ -53,7 +54,11 @@ public class Robot extends IterativeRobot {
 	
 	@Override
 	public void autonomousInit() {
-		step.add(new goDriveStraight(420.0));
+		step.add(new goDriveStraight(5.0));
+		stepSecondary.add(new Action());
+		step.add(new goOrientThySelf(5.0));
+		stepSecondary.add(new Action());
+		step.add(new goDriveStraight(5.0));
 		stepSecondary.add(new Action());
 		step.add(null);
 		stepSecondary.add(null);
