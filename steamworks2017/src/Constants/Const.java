@@ -10,12 +10,7 @@ public class Const {
 	/**other motors*/
 	public static final int FWheel = 5;
 	public static final int Intake = 6;
-	/**controller ports*/
-	public static final int gpad = 0;
-	public static final int joyl = 0;
-	public static final int joyr = 0;
-	public static final int box = 0;
-	/**other controller stuffs*/
+	
 	//This is half of the deadzone
 	public static final double deadZone = 2.0;
 	/**encoder channels*/
@@ -23,4 +18,12 @@ public class Const {
 	public static final int motorEncChanB = 1;
 	public static final int shooterEncChanA = 0;
 	public static final int shooterEncChanB = 1;
+	/**controller ports*/
+	public static final int gpad = 0;
+	public static final int joyl = 0;
+	public static final int joyr = 0;
+	public static final int box = 0;
+	/**other controller stuffs*/
+	public static final int  boxButton1 = 0;
+	public static final int boxButton2 = 0;
 }
