@@ -5,7 +5,7 @@ import com.ctre.CANTalon;
 import Constants.Const;
 import Objects.Action;
 
-public class Intake extends Action {
+public class Intake{
     CANTalon intakeMotor;
 	
     public Intake(int stillMaybeAnumber){

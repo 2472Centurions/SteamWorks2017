@@ -8,6 +8,7 @@ public class Const {
 	public static final int BR = 3;
 	public static final int FR = 4;
 	/**other motors*/
+	public static final int climber = 7;
 	public static final int FWheel = 5;
 	public static final int Intake = 6;
 	
