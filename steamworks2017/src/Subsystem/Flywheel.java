@@ -6,7 +6,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 import Objects.Action;
 import Constants.Const;
 
-public class Flywheel extends Action {
+public class Flywheel {
 
 	CANTalon flywheelMotor;
 

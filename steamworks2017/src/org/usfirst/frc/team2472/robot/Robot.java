@@ -10,6 +10,7 @@ import Actions.goSpin;
 import Actions.goShoot;
 import Constants.Const;
 import Objects.Action;
+import Subsystem.Climber;
 import Subsystem.Flywheel;
 import Subsystem.Intake;
 import Subsystem.drive;
@@ -28,7 +29,7 @@ public class Robot extends IterativeRobot {
 	public static Flywheel f = new Flywheel(Const.FWheel);
 	public static Encoder motorEnc;
 	public static Encoder shooterEnc;
-
+	public static Climber c;
 	ArrayList<Action> step = new ArrayList<Action>();
 	ArrayList<Action> stepSecondary = new ArrayList<Action>();
 	int currentAction = 0;
@@ -40,7 +41,7 @@ public class Robot extends IterativeRobot {
 	SerialPort serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
 	byte update_rate_hz = 50;
 	public static IMUAdvanced imu;
-
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -51,22 +52,30 @@ public class Robot extends IterativeRobot {
 			imu = new IMUAdvanced(serial_port, update_rate_hz);
 		} catch (Exception e) {
 
-			System.out.println("IMU is broken.");
+			System.out.println("IMU is broken/Not connected.");
 
 		}
 		try {
 			motorEnc = new Encoder(Const.motorEncChanA, Const.motorEncChanB, false, Encoder.EncodingType.k4X);
 		} catch (Exception e) {
 
-			System.out.println("Motor Encoder is broken.");
+			System.out.println("Motor Encoder is broken/Not connected.");
 
 		}
 		try {
 			shooterEnc = new Encoder(Const.shooterEncChanA, Const.shooterEncChanB, false, Encoder.EncodingType.k4X);
 		} catch (Exception e) {
 
-			System.out.println("Shooter Encoder is broken.");
+			System.out.println("Shooter Encoder is broken/Not connected.");
 
+		}
+		try {
+		c = new Climber(Const.climber);
+				} 	
+		catch (Exception e){
+			
+			System.out.println("Climber is broken/Not connected");
+			
 		}
 	}
 
@@ -160,6 +169,7 @@ public class Robot extends IterativeRobot {
 
 			i.intakeStop();
 		}
+		
 	}
 
 	@Override
