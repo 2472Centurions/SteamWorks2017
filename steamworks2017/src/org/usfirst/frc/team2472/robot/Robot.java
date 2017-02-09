@@ -13,6 +13,7 @@ import Objects.Action;
 import Subsystem.Climber;
 import Subsystem.Flywheel;
 import Subsystem.Intake;
+import Subsystem.ballCycler;
 import Subsystem.drive;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -29,7 +30,9 @@ public class Robot extends IterativeRobot {
 	public static Flywheel f = new Flywheel(Const.FWheel);
 	public static Encoder motorEnc;
 	public static Encoder shooterEnc;
-	public static Climber c;
+	public static Climber climber;
+	public static ballCycler cycler;
+	public static IMUAdvanced imu;
 	ArrayList<Action> step = new ArrayList<Action>();
 	ArrayList<Action> stepSecondary = new ArrayList<Action>();
 	int currentAction = 0;
@@ -40,8 +43,7 @@ public class Robot extends IterativeRobot {
 	Joystick box = new Joystick(Const.box);
 	SerialPort serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
 	byte update_rate_hz = 50;
-	public static IMUAdvanced imu;
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -70,13 +72,18 @@ public class Robot extends IterativeRobot {
 
 		}
 		try {
-		c = new Climber(Const.climber);
-				} 	
-		catch (Exception e){
-			
+			climber = new Climber(Const.climber);
+		} catch (Exception e) {
+
 			System.out.println("Climber is broken/Not connected");
-			
+
 		}
+		try {
+
+		} catch (Exception e) {
+
+		}
+
 	}
 
 	@Override
@@ -149,7 +156,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		d.tankDrive(joyl, joyr);
-		if (gamepadController.getRawButton(1)) {
+		if (gamepadController.getTrigger()) {
 
 			f.flywhlGo(1.0);
 
@@ -159,17 +166,38 @@ public class Robot extends IterativeRobot {
 
 			f.flywhlStop();
 		}
-		if (gamepadController.getRawButton(2)) {
+		if (gamepadController.getRawButton(1)) {
 
 			i.intakeGo(1.0);
 
 		}
-
-		else {
+		if (gamepadController.getRawButton(2)) {
 
 			i.intakeStop();
+
 		}
-		
+		if (gamepadController.getRawButton(3)) {
+
+			climber.extend();
+
+		} else if (gamepadController.getRawButton(4)) {
+
+			climber.retract();
+
+		} else {
+
+			climber.stop();
+
+		}
+		if (gamepadController.getRawButton(6)) {
+
+			cycler.cycleIt();
+
+		} else {
+
+			cycler.stop();
+
+		}
 	}
 
 	@Override
