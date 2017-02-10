@@ -17,8 +17,8 @@ public class Const {
 	/**encoder channels*/
 	public static final int motorEncChanA = 0;
 	public static final int motorEncChanB = 1;
-	public static final int shooterEncChanA = 0;
-	public static final int shooterEncChanB = 1;
+	public static final int shooterEncChanA = 3;
+	public static final int shooterEncChanB = 4;
 	/**controller ports*/
 	public static final int gpad = 0;
 	public static final int joyl = 0;

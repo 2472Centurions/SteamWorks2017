@@ -5,6 +5,7 @@ import com.ctre.CANTalon;
 import com.kauailabs.nav6.frc.IMUAdvanced;
 import Actions.goBackward;
 import Actions.goDriveStraight;
+import Actions.goDriveStraightDistance;
 import Actions.goOrientThySelf;
 import Actions.goSpin;
 import Actions.goShoot;
@@ -41,7 +42,7 @@ public class Robot extends IterativeRobot {
 	Joystick joyl = new Joystick(Const.joyl);
 	Joystick joyr = new Joystick(Const.joyr);
 	Joystick box = new Joystick(Const.box);
-	SerialPort serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
+	SerialPort serial_port;
 	byte update_rate_hz = 50;
 
 	/**
@@ -50,6 +51,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		 
+		 try {
+				serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
+			} catch (Exception e) {
+
+				System.out.println("IMU is broken/Not connected.");
+
+			}
 		try {
 			imu = new IMUAdvanced(serial_port, update_rate_hz);
 		} catch (Exception e) {
@@ -59,6 +68,8 @@ public class Robot extends IterativeRobot {
 		}
 		try {
 			motorEnc = new Encoder(Const.motorEncChanA, Const.motorEncChanB, false, Encoder.EncodingType.k4X);
+			motorEnc.setReverseDirection(true);
+			motorEnc.setDistancePerPulse(.08);
 		} catch (Exception e) {
 
 			System.out.println("Motor Encoder is broken/Not connected.");
@@ -88,23 +99,19 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		if (box.getRawButton(Const.boxButton1)) {
+		//if (box.getRawButton(Const.boxButton1)) {
 
-		} else if (box.getRawButton(Const.boxButton2)) {
+		//} else if (box.getRawButton(Const.boxButton2)) {
 
-		}
+		//}
 
-		else {
-			step.add(new goDriveStraight(5.0));
-			stepSecondary.add(new Action());
-			step.add(new goOrientThySelf(5.0));
-			stepSecondary.add(new Action());
-			step.add(new goDriveStraight(5.0));
+		//else {
+			step.add(new goDriveStraightDistance(5.0));
 			stepSecondary.add(new Action());
 			step.add(null);
 			stepSecondary.add(null);
 
-		}
+		//}
 
 		if (step.size() > 0) {
 
