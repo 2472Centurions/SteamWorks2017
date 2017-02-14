@@ -17,6 +17,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Compiler stuffs
+steamworks2017/bin
+
 # =========================
 # Operating System Files
 # =========================
