@@ -1,14 +1,8 @@
 package org.usfirst.frc.team2472.robot;
 
 import java.util.ArrayList;
-import com.ctre.CANTalon;
 import com.kauailabs.nav6.frc.IMUAdvanced;
-import Actions.goBackward;
-import Actions.goDriveStraight;
 import Actions.goDriveStraightDistance;
-import Actions.goOrientThySelf;
-import Actions.goSpin;
-import Actions.goShoot;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Climber;
@@ -20,7 +14,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //Steamworks2017
@@ -51,19 +44,25 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		 
-		 try {
-				serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
-			} catch (Exception e) {
+		
+		SmartDashboard.putNumber("IMU Yaw", 360);
+		SmartDashboard.putNumber("IMU Pitch", 180);
+		SmartDashboard.putNumber("Motor Speed", 80000000);
+		SmartDashboard.putNumber("Shooter Speed", 70000000);
+		SmartDashboard.putBoolean("IMU Connected", true);
 
-				System.out.println("IMU is broken/Not connected.");
+		try {
+			serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
+		} catch (Exception e) {
 
-			}
+			SmartDashboard.putBoolean("IMU Connected", false);
+
+		}
 		try {
 			imu = new IMUAdvanced(serial_port, update_rate_hz);
 		} catch (Exception e) {
 
-			System.out.println("IMU is broken/Not connected.");
+			SmartDashboard.putBoolean("IMU Connected", false);
 
 		}
 		try {
@@ -99,19 +98,20 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		//if (box.getRawButton(Const.boxButton1)) {
+		// if (box.getRawButton(Const.boxButton1)) {
 
-		//} else if (box.getRawButton(Const.boxButton2)) {
+		// } else if (box.getRawButton(Const.boxButton2)) {
 
-		//}
+		// }
 
-		//else {
-			step.add(new goDriveStraightDistance(5.0));
-			stepSecondary.add(new Action());
-			step.add(null);
-			stepSecondary.add(null);
+		// else {
+		step.add(new goDriveStraightDistance(5.0));
+		stepSecondary.add(new Action());
+		step.add(null);
+		stepSecondary.add(null);
+		
 
-		//}
+		// }
 
 		if (step.size() > 0) {
 
