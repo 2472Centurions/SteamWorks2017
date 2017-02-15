@@ -198,7 +198,7 @@ public class Robot extends IterativeRobot {
 
 		} else {
 
-			cycler.stop();
+			//cycler.stop(); put this back later
 
 		}
 		if (gamepadController.getAxis(AxisType.kTwist)>=.1){

@@ -14,8 +14,8 @@ public class drive extends Action {
 		l2 = new CANTalon(flm);
 		r1 = new CANTalon(brm);
 		r2 = new CANTalon(frm);
-		r1.setInverted(true);
-		r2.setInverted(true);
+		l1.setInverted(true);
+		l2.setInverted(true);
 	}
 
 	public void runMotor(int motor, double spped) {

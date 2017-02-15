@@ -21,10 +21,10 @@ public class Const {
 	public static final int shooterEncChanA = 3;
 	public static final int shooterEncChanB = 4;
 	/**controller ports*/
-	public static final int gpad = 0;
-	public static final int joyl = 0;
+	public static final int gpad = 2;
+	public static final int joyl = 1;
 	public static final int joyr = 0;
-	public static final int box = 0;
+	public static final int box = 3;
 	/**other controller stuffs*/
 	public static final int  boxButton1 = 0;
 	public static final int boxButton2 = 0;
