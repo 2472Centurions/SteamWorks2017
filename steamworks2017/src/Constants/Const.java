@@ -3,14 +3,15 @@ package Constants;
 public class Const {
 	public static final String spped = "FAST";//we need this i promise
 /**drive motors*/
-	public static final int BL = 1;
-	public static final int FL = 2;
-	public static final int BR = 3;
-	public static final int FR = 4;
+	public static final int BL = 14;
+	public static final int FL = 15;
+	public static final int BR = 2;
+	public static final int FR = 3;
 	/**other motors*/
-	public static final int climber = 7;
-	public static final int FWheel = 5;
-	public static final int Intake = 6;
+	public static final int climber = 0;
+	public static final int FWheel = 1;
+	public static final int Intake = 13;
+	public static final int Cycler = 16;
 	
 	//This is half of the deadzone
 	public static final double deadZone = 2.0;

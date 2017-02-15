@@ -1,14 +1,8 @@
 package org.usfirst.frc.team2472.robot;
 
 import java.util.ArrayList;
-import com.ctre.CANTalon;
 import com.kauailabs.nav6.frc.IMUAdvanced;
-import Actions.goBackward;
-import Actions.goDriveStraight;
 import Actions.goDriveStraightDistance;
-import Actions.goOrientThySelf;
-import Actions.goSpin;
-import Actions.goShoot;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Climber;
@@ -17,10 +11,11 @@ import Subsystem.Intake;
 import Subsystem.ballCycler;
 import Subsystem.drive;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 //Steamworks2017
@@ -51,19 +46,25 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		 
-		 try {
-				serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
-			} catch (Exception e) {
 
-				System.out.println("IMU is broken/Not connected.");
+		SmartDashboard.putBoolean("IMU", true);
+		SmartDashboard.putBoolean("Motor Encoder", true);
+		SmartDashboard.putBoolean("Shooter Encoder", true);
+		SmartDashboard.putBoolean("Climber", true);
+		SmartDashboard.putBoolean("Cycler", true);
 
-			}
+		try {
+			serial_port = new SerialPort(57600, SerialPort.Port.kUSB);
+		} catch (Exception e) {
+
+			SmartDashboard.putBoolean("IMU", false);
+
+		}
 		try {
 			imu = new IMUAdvanced(serial_port, update_rate_hz);
 		} catch (Exception e) {
 
-			System.out.println("IMU is broken/Not connected.");
+			SmartDashboard.putBoolean("IMU", false);
 
 		}
 		try {
@@ -72,46 +73,46 @@ public class Robot extends IterativeRobot {
 			motorEnc.setDistancePerPulse(.08);
 		} catch (Exception e) {
 
-			System.out.println("Motor Encoder is broken/Not connected.");
+			SmartDashboard.putBoolean("Motor Encoder", true);
 
 		}
 		try {
 			shooterEnc = new Encoder(Const.shooterEncChanA, Const.shooterEncChanB, false, Encoder.EncodingType.k4X);
 		} catch (Exception e) {
 
-			System.out.println("Shooter Encoder is broken/Not connected.");
+			SmartDashboard.putBoolean("Shooter Encoder", true);
 
 		}
 		try {
 			climber = new Climber(Const.climber);
 		} catch (Exception e) {
 
-			System.out.println("Climber is broken/Not connected");
+			SmartDashboard.putBoolean("Climber", true);
 
 		}
 		try {
-
+			cycler = new ballCycler(Const.Cycler);
 		} catch (Exception e) {
-
+			SmartDashboard.putBoolean("Cycler", false);
 		}
 
 	}
 
 	@Override
 	public void autonomousInit() {
-		//if (box.getRawButton(Const.boxButton1)) {
+		// if (box.getRawButton(Const.boxButton1)) {
 
-		//} else if (box.getRawButton(Const.boxButton2)) {
+		// } else if (box.getRawButton(Const.boxButton2)) {
 
-		//}
+		// }
 
-		//else {
-			step.add(new goDriveStraightDistance(5.0));
-			stepSecondary.add(new Action());
-			step.add(null);
-			stepSecondary.add(null);
+		// else {
+		step.add(new goDriveStraightDistance(5.0));
+		stepSecondary.add(new Action());
+		step.add(null);
+		stepSecondary.add(null);
 
-		//}
+		// }
 
 		if (step.size() > 0) {
 
@@ -133,6 +134,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
 		if (step.size() > 0 && step.get(currentAction) != null) {
 
@@ -162,6 +167,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 		d.tankDrive(joyl, joyr);
 		if (gamepadController.getTrigger()) {
 
@@ -183,19 +192,6 @@ public class Robot extends IterativeRobot {
 			i.intakeStop();
 
 		}
-		if (gamepadController.getRawButton(3)) {
-
-			climber.extend();
-
-		} else if (gamepadController.getRawButton(4)) {
-
-			climber.retract();
-
-		} else {
-
-			climber.stop();
-
-		}
 		if (gamepadController.getRawButton(6)) {
 
 			cycler.cycleIt();
@@ -205,10 +201,24 @@ public class Robot extends IterativeRobot {
 			cycler.stop();
 
 		}
+		if (gamepadController.getAxis(AxisType.kTwist)>=.1){
+			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
+		} else {
+			climber.stop();
+		}
 	}
 
 	@Override
 	public void testPeriodic() {
+		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
+		
+		if (gamepadController.getAxis(AxisType.kTwist)>=.1){
+			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
+			//speeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed #fyast
+		}
 
 		if (gamepadController.getRawButton(1)) {
 
@@ -234,11 +244,19 @@ public class Robot extends IterativeRobot {
 
 			i.intakeGo(1.0);
 
+		} else if (gamepadController.getRawButton(7)) {
+
+			climber.setSpeed(1.0);
+		} else if (gamepadController.getRawButton(8)) {
+			
+			cycler.cycleSpeed(1.0);
 		} else {
 
 			d.stopMotors();
 			f.flywhlStop();
 			i.intakeStop();
+			climber.stop();
+			cycler.stop();
 		}
 
 		// WHOA TECHNOLOGY

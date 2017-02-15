@@ -18,7 +18,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Compiler stuffs
-steamworks2017/bin
+steamworks2017/b*
 
 # =========================
 # Operating System Files
