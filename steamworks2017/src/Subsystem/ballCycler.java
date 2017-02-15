@@ -5,9 +5,9 @@ import com.ctre.CANTalon;
 public class ballCycler {
 	CANTalon cycle;
 
-	public ballCycler(CANTalon cycleMotor) {
+	public ballCycler(int CAN) {
 
-		cycle = cycleMotor;
+		cycle = new CANTalon(CAN);
 
 	}
 

@@ -44,11 +44,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
-		SmartDashboard.putNumber("IMU Yaw", 360);
-		SmartDashboard.putNumber("IMU Pitch", 180);
-		SmartDashboard.putNumber("Motor Speed", 80000000);
-		SmartDashboard.putNumber("Shooter Speed", 70000000);
+
 		SmartDashboard.putBoolean("IMU Connected", true);
 
 		try {
@@ -89,9 +85,9 @@ public class Robot extends IterativeRobot {
 
 		}
 		try {
-
+			cycler = new ballCycler(Const.Cycler);
 		} catch (Exception e) {
-
+			System.out.println("Cycler is broken/Not connected");
 		}
 
 	}
@@ -109,7 +105,6 @@ public class Robot extends IterativeRobot {
 		stepSecondary.add(new Action());
 		step.add(null);
 		stepSecondary.add(null);
-		
 
 		// }
 
@@ -133,6 +128,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
 		if (step.size() > 0 && step.get(currentAction) != null) {
 
@@ -162,6 +161,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 		d.tankDrive(joyl, joyr);
 		if (gamepadController.getTrigger()) {
 
@@ -209,6 +212,10 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
+		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
 		if (gamepadController.getRawButton(1)) {
 
@@ -234,11 +241,19 @@ public class Robot extends IterativeRobot {
 
 			i.intakeGo(1.0);
 
+		} else if (gamepadController.getRawButton(7)) {
+
+			climber.setSpeed(1.0);
+		} else if (gamepadController.getRawButton(8)) {
+			
+			cycler.cycleSpeed(1.0);
 		} else {
 
 			d.stopMotors();
 			f.flywhlStop();
 			i.intakeStop();
+			climber.stop();
+			cycler.stop();
 		}
 
 		// WHOA TECHNOLOGY
