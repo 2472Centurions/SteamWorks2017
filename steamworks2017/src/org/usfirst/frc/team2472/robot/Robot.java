@@ -21,6 +21,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Steamworks2017
 
 public class Robot extends IterativeRobot {
+	BoxInfo BiL;
+	BoxInfo BiR;
+	int springPos;
+	String str;
+	String Finals;
+	SerialPort serial=new SerialPort(9600, SerialPort.Port.kUSB);
 	public static drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 	public static Intake i = new Intake(Const.Intake);
 	public static Flywheel f = new Flywheel(Const.FWheel);
@@ -260,5 +266,47 @@ public class Robot extends IterativeRobot {
 		}
 
 		// WHOA TECHNOLOGY
+	}
+	public void getIt(){
+		str=serial.readString(1);
+		//System.out.println("Trying to Read");
+		if(str!=null&&!str.equals("^")){
+			Finals += str;
+		//	System.out.println("Collecting");
+		}
+		else if(Finals.split(":").length==8){
+			//System.out.println(finalS);
+			String[] tt = Finals.split(":");
+			try{
+				
+				
+				tt[0]=tt[0].substring(2);
+				
+				if(Integer.parseInt(tt[0])>Integer.parseInt(tt[4])){
+					BiL = new BoxInfo(tt[4],tt[5],tt[6],tt[5]);
+					BiR = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
+				}
+				else if(Integer.parseInt(tt[0])<Integer.parseInt(tt[4])){
+					BiR = new BoxInfo(tt[4],tt[5],tt[6],tt[5]);
+					BiL = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
+				}
+				
+				//System.out.println("Left Box X:" + bIL.getX());
+				//System.out.println("Right Box X:" + bIR.getX());
+				springPos=(BiL.getX()+BiR.getX())/2;
+				//System.out.println("Width:" + tt[2]);
+				Finals = "";
+			}
+			catch(Exception e){
+				System.out.println(tt[0]);
+				System.out.println(tt[4]);
+				System.out.println(e);
+			}
+		}
+		else{
+			Finals = "";
+		}
+			
+		
 	}
 }
