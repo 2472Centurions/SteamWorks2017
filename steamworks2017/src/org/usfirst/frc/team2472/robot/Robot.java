@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //Steamworks2017
 
 public class Robot extends IterativeRobot {
+	public String tt[];
 	BoxInfo BiL;
 	BoxInfo BiR;
 	int springPos;
@@ -140,6 +141,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		for(int i=0;i<6;i++){
+			getIt();
+		}
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
@@ -173,6 +177,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		for(int i=0;i<6;i++){
+			getIt();
+		}
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
@@ -274,20 +281,20 @@ public class Robot extends IterativeRobot {
 			Finals += str;
 		//	System.out.println("Collecting");
 		}
-		else if(Finals.split(":").length==8){
+		else if(Finals.split(":").length==9){
 			//System.out.println(finalS);
-			String[] tt = Finals.split(":");
+			tt = Finals.split(":");
 			try{
 				
 				
 				tt[0]=tt[0].substring(2);
 				
 				if(Integer.parseInt(tt[0])>Integer.parseInt(tt[4])){
-					BiL = new BoxInfo(tt[4],tt[5],tt[6],tt[5]);
+					BiL = new BoxInfo(tt[4],tt[5],tt[6],tt[7]);
 					BiR = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
 				}
 				else if(Integer.parseInt(tt[0])<Integer.parseInt(tt[4])){
-					BiR = new BoxInfo(tt[4],tt[5],tt[6],tt[5]);
+					BiR = new BoxInfo(tt[4],tt[5],tt[6],tt[7]);
 					BiL = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
 				}
 				
