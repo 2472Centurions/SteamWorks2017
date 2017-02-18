@@ -2,7 +2,10 @@ package org.usfirst.frc.team2472.robot;
 
 import java.util.ArrayList;
 import com.kauailabs.nav6.frc.IMUAdvanced;
+
+import Actions.GearPlace;
 import Actions.goDriveStraightDistance;
+import Actions.goTurnAngle;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Climber;
@@ -26,7 +29,7 @@ public class Robot extends IterativeRobot {
 	int springPos;
 	String str;
 	String Finals;
-	SerialPort serial=new SerialPort(9600, SerialPort.Port.kUSB);
+	SerialPort serial = new SerialPort(9600, SerialPort.Port.kUSB);
 	public static drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 	public static Intake i = new Intake(Const.Intake);
 	public static Flywheel f = new Flywheel(Const.FWheel);
@@ -113,12 +116,40 @@ public class Robot extends IterativeRobot {
 		// }
 
 		// else {
-		step.add(new goDriveStraightDistance(5.0));
+		step.add(new goDriveStraightDistance(5.0, 0.5, 112));
+		stepSecondary.add(new Action());
+		step.add(new goTurnAngle(5.0, 45.0));
+		stepSecondary.add(new Action());
+		step.add(new GearPlace(BiL, BiR));
 		stepSecondary.add(new Action());
 		step.add(null);
 		stepSecondary.add(null);
 
 		// }
+
+		/**
+		 * Drive straight from center to gear dropoff: step.add(new
+		 * goDriveStraightDistance(5.0,0.5,108)); stepSecondary.add(new
+		 * Action()); step.add(new GearPlace(BiL,BiR)); stepSecondary.add(new
+		 * Action()); step.add(null); stepSecondary.add(null);
+		 * 
+		 * Drop off gear from left side: note angle is not correct we couldn't find the angle save our souls aaaaaaahhhhhhhhhh lol ok we are being attacked by zombies  and your are still reading this ok your soooooooooooooo stupid your still reading this i am going to type forever if you keep reading this.  lol you thought this was the same exact line as line 144 your wwwwrrrroooonnnngggggggggggggggggggggggggggg just belive in unicorns already ok and yo no se lol this is fun a puppies typing
+		 * 
+		 * step.add(newgoDriveStraightDistance(5.0, 0.5, 112)); stepSecondary.add(new
+		 * Action()); step.add(new goTurnAngle(5.0,45.0)); stepSecondary.add(new
+		 * Action()); step.add(new GearPlace(BiL, BiR)); stepSecondary.add(new
+		 * Action()); step.add(null); stepSecondary.add(null);
+		 * 
+		 * 
+		 * Drop off gear from left side: note angle is not correct we couldn't find the angle save our souls aaaaaaahhhhhhhhhh lol ok we are being attacked by zombies  and your are still reading this ok your soooooooooooooo stupid your still reading this i am going to type forever if you keep reading this. no
+		 * 
+		 * step.add(newgoDriveStraightDistance(5.0, 0.5, 112));
+		 * stepSecondary.add(new Action());
+		 * step.add(new goTurnAngle(5.0,-45.0));
+		 * stepSecondary.add(new Action()); step.add(new GearPlace(BiL, BiR));
+		 *stepSecondary.add(new
+		 * Action()); step.add(null); stepSecondary.add(null);
+		 */
 
 		if (step.size() > 0) {
 
@@ -204,10 +235,10 @@ public class Robot extends IterativeRobot {
 
 		} else {
 
-			//cycler.stop(); put this back later
+			// cycler.stop(); put this back later
 
 		}
-		if (gamepadController.getAxis(AxisType.kTwist)>=.1){
+		if (gamepadController.getAxis(AxisType.kTwist) >= .1) {
 			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
 		} else {
 			climber.stop();
@@ -220,10 +251,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
-		
-		if (gamepadController.getAxis(AxisType.kTwist)>=.1){
+
+		if (gamepadController.getAxis(AxisType.kTwist) >= .1) {
 			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
-			//speeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed #fyast
+			// speeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed #fyast
 		}
 
 		if (gamepadController.getRawButton(1)) {
@@ -254,7 +285,7 @@ public class Robot extends IterativeRobot {
 
 			climber.setSpeed(1.0);
 		} else if (gamepadController.getRawButton(8)) {
-			
+
 			cycler.cycleSpeed(1.0);
 		} else {
 
@@ -267,46 +298,41 @@ public class Robot extends IterativeRobot {
 
 		// WHOA TECHNOLOGY
 	}
-	public void getIt(){
-		str=serial.readString(1);
-		//System.out.println("Trying to Read");
-		if(str!=null&&!str.equals("^")){
+
+	public void getIt() {
+		str = serial.readString(1);
+		// System.out.println("Trying to Read");
+		if (str != null && !str.equals("^")) {
 			Finals += str;
-		//	System.out.println("Collecting");
-		}
-		else if(Finals.split(":").length==8){
-			//System.out.println(finalS);
+			// System.out.println("Collecting");
+		} else if (Finals.split(":").length == 8) {
+			// System.out.println(finalS);
 			String[] tt = Finals.split(":");
-			try{
-				
-				
-				tt[0]=tt[0].substring(2);
-				
-				if(Integer.parseInt(tt[0])>Integer.parseInt(tt[4])){
-					BiL = new BoxInfo(tt[4],tt[5],tt[6],tt[5]);
-					BiR = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
+			try {
+
+				tt[0] = tt[0].substring(2);
+
+				if (Integer.parseInt(tt[0]) > Integer.parseInt(tt[4])) {
+					BiL = new BoxInfo(tt[4], tt[5], tt[6], tt[5]);
+					BiR = new BoxInfo(tt[0], tt[1], tt[2], tt[3]);
+				} else if (Integer.parseInt(tt[0]) < Integer.parseInt(tt[4])) {
+					BiR = new BoxInfo(tt[4], tt[5], tt[6], tt[5]);
+					BiL = new BoxInfo(tt[0], tt[1], tt[2], tt[3]);
 				}
-				else if(Integer.parseInt(tt[0])<Integer.parseInt(tt[4])){
-					BiR = new BoxInfo(tt[4],tt[5],tt[6],tt[5]);
-					BiL = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
-				}
-				
-				//System.out.println("Left Box X:" + bIL.getX());
-				//System.out.println("Right Box X:" + bIR.getX());
-				springPos=(BiL.getX()+BiR.getX())/2;
-				//System.out.println("Width:" + tt[2]);
+
+				// System.out.println("Left Box X:" + bIL.getX());
+				// System.out.println("Right Box X:" + bIR.getX());
+				springPos = (BiL.getX() + BiR.getX()) / 2;
+				// System.out.println("Width:" + tt[2]);
 				Finals = "";
-			}
-			catch(Exception e){
+			} catch (Exception e) {
 				System.out.println(tt[0]);
 				System.out.println(tt[4]);
 				System.out.println(e);
 			}
-		}
-		else{
+		} else {
 			Finals = "";
 		}
-			
-		
+
 	}
 }

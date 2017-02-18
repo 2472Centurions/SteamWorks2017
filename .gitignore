@@ -20,6 +20,7 @@ $RECYCLE.BIN/
 # Compiler stuffs
 *steamworks2017/build/*
 *steamworks2017/bin/*
+*steamworks2017/b*
 
 # =========================
 # Operating System Files

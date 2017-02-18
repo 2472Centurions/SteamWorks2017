@@ -4,18 +4,18 @@ import org.usfirst.frc.team2472.robot.Robot;
 
 import Objects.Action;
 
-public class goOrientThySelf extends Action {
+public class goTurnAngle extends Action {
 
 	private double speed = 0.8;
 	private double angle = 180.0;
 
-	public goOrientThySelf(double time) {
+	public goTurnAngle(double time) {
 
 		timeout = time;
 
 	}
 
-	public goOrientThySelf(double time, double turnAngle) {
+	public goTurnAngle(double time, double turnAngle) {
 
 		timeout = time;
 
