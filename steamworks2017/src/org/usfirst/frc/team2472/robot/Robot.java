@@ -140,6 +140,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
+		for(int i=0;i<6;i++){
+			getIt();
+		}
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
@@ -173,6 +176,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		for(int i=0;i<6;i++){
+			getIt();
+		}
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
