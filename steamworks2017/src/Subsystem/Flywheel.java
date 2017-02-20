@@ -16,7 +16,7 @@ public class Flywheel {
 
 		
 		flywheelMotor = new CANTalon(number);
-		
+		flywheelMotor.setFeedbackDevice(FeedbackDevice.EncRising);
 		flywheelMotor.reverseSensor(false);
 		flywheelMotor.configNominalOutputVoltage(+0.0f,-0.0f);
 		flywheelMotor.configPeakOutputVoltage(12.0f, -12.0f);

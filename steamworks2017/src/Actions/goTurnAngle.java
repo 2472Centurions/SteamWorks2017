@@ -1,3 +1,4 @@
+
 package Actions;
 
 import org.usfirst.frc.team2472.robot.Robot;
@@ -6,19 +7,19 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 
 import Objects.Action;
 
-public class goOrientThySelf extends Action {
+public class goTurnAngle extends Action {
 	IMUAdvanced imu;
 	private double speed = 0.8;
 	private double angle = 180.0;
 
-	public goOrientThySelf(double time,IMUAdvanced i,double a) {
-		imu=i;
+	public goTurnAngle(double time) {
+
 		timeout = time;
 		angle = a;
 
 	}
 
-	public goOrientThySelf(double time, double turnAngle) {
+	public goTurnAngle(double time, double turnAngle) {
 
 		timeout = time;
 

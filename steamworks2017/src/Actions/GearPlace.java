@@ -15,9 +15,9 @@ public class GearPlace extends Action {
 	Robot robot;
 	double speed;
 	AnalogInput dist;
-	IMUAdvanced imu;
-	public GearPlace(BoxInfo l,BoxInfo r,double sped,AnalogInput distance){
-		
+	
+	public GearPlace(BoxInfo l,BoxInfo r){
+		timeout=time;
 		speed=sped;
 	//	imu=i;
 		try{
