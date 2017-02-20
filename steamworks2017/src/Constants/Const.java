@@ -11,7 +11,8 @@ public class Const {
 	public static final int climber = 0;
 	public static final int FWheel = 1;
 	public static final int Intake = 13;
-	public static final int Cycler = 16;
+	public static final int CyclerA = 4;
+	public static final int CyclerB = 12;
 	
 	//This is half of the deadzone
 	public static final double deadZone = 2.0;
@@ -28,4 +29,12 @@ public class Const {
 	/**other controller stuffs*/
 	public static final int  boxButton1 = 0;
 	public static final int boxButton2 = 0;
+	public static final int buttonA = 1;
+	public static final int buttonB = 2;
+	public static final int buttonX = 3;
+	public static final int buttonY = 4;
+	public static final int buttonL = 5;
+	public static final int buttonR = 6;
+	public static final int buttonBack = 7;
+	public static final int buttonStart = 8;
 }
