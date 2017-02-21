@@ -27,7 +27,9 @@ public class Robot extends IterativeRobot {
 	int springPos;
 	String str;
 	String Finals;
+
 	SerialPort serial=new SerialPort(9600, SerialPort.Port.kUSB);
+
 	public static drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 	public static Intake i = new Intake(Const.Intake);
 	public static Flywheel f = new Flywheel(Const.FWheel);
@@ -39,14 +41,15 @@ public class Robot extends IterativeRobot {
 	ArrayList<Action> step = new ArrayList<Action>();
 	ArrayList<Action> stepSecondary = new ArrayList<Action>();
 	int currentAction = 0;
-
+	public boolean OBJECT=true;
 	Joystick gamepadController = new Joystick(Const.gpad);
 	Joystick joyl = new Joystick(Const.joyl);
 	Joystick joyr = new Joystick(Const.joyr);
 	Joystick box = new Joystick(Const.box);
 	SerialPort serial_port;
 	byte update_rate_hz = 50;
-
+	CamToSdash camera;
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -114,10 +117,10 @@ public class Robot extends IterativeRobot {
 		// }
 
 		// else {
-		step.add(new goDriveStraightDistance(5.0));
-		stepSecondary.add(new Action());
-		step.add(null);
-		stepSecondary.add(null);
+	//	step.add(new goDriveStraightDistance(5.0));
+		//stepSecondary.add(new Action());
+		//step.add(null);
+	//	stepSecondary.add(null);
 
 		// }
 
@@ -141,9 +144,13 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		for(int i=0;i<6;i++){
+		
 			getIt();
-		}
+			getIt();
+			getIt();
+			getIt();
+			getIt();
+			getIt();
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
@@ -177,15 +184,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		for(int i=0;i<6;i++){
-			getIt();
-		}
+		//for(int i=0;i<6;i++){
+		//	getIt();
+		//}
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 		d.tankDrive(joyl, joyr);
-		if (gamepadController.getTrigger()) {
+		if (gamepadController.getRawButton(5)) {
 
 			f.flywhlGo(1.0);
 
@@ -205,13 +212,16 @@ public class Robot extends IterativeRobot {
 			i.intakeStop();
 
 		}
-		if (gamepadController.getRawButton(6)) {
+		if (gamepadController.getRawButton(3)) {
+			cycler.cycleSpeed(.5);
+			
+		}
+		else if (gamepadController.getRawButton(4)) {
+			cycler.cycleSpeed(-.5);
+			
+		}else {
 
-			cycler.cycleIt();
-
-		} else {
-
-			//cycler.stop(); put this back later
+			cycler.stop();
 
 		}
 		if (gamepadController.getAxis(AxisType.kTwist)>=.1){
@@ -223,6 +233,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
+		camera.addCamera();
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
@@ -275,7 +286,7 @@ public class Robot extends IterativeRobot {
 		// WHOA TECHNOLOGY
 	}
 	public void getIt(){
-		str=serial.readString(1);
+	str=serial.readString(1);
 		//System.out.println("Trying to Read");
 		if(str!=null&&!str.equals("^")){
 			Finals += str;
@@ -298,8 +309,8 @@ public class Robot extends IterativeRobot {
 					BiL = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
 				}
 				
-				//System.out.println("Left Box X:" + bIL.getX());
-				//System.out.println("Right Box X:" + bIR.getX());
+				System.out.println("Left Box X:" + BiL.getX());
+				System.out.println("Right Box X:" + BiR.getX());
 				springPos=(BiL.getX()+BiR.getX())/2;
 				//System.out.println("Width:" + tt[2]);
 				Finals = "";
@@ -309,6 +320,9 @@ public class Robot extends IterativeRobot {
 				System.out.println(tt[4]);
 				System.out.println(e);
 			}
+		}else if(Finals.split(":").length==1){
+			OBJECT=false;
+			
 		}
 		else{
 			Finals = "";

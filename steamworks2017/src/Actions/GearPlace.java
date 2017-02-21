@@ -35,7 +35,7 @@ springPos=(left.getX()+right.getX())/2;
 
 	public void periodic() {
 		if(dist.getAverageValue()<2000)speed=0;
-		if(Integer.parseInt(robot.tt[8])==2){
+		if(!robot.OBJECT){
 		springPos=(left.getX()+right.getX())/2;
 		
 		if(springPos>159){

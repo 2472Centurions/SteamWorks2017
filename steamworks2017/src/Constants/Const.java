@@ -11,7 +11,7 @@ public class Const {
 	public static final int climber = 0;
 	public static final int FWheel = 1;
 	public static final int Intake = 13;
-	public static final int Cycler = 16;
+	public static final int Cycler = 12;
 	
 	//This is half of the deadzone
 	public static final double deadZone = 2.0;

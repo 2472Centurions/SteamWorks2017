@@ -13,7 +13,7 @@ public class ballCycler {
 
 	public void cycleIt() {
 
-		cycle.set(1.0);
+		cycle.set(.5);
 
 	}
 
@@ -25,7 +25,7 @@ public class ballCycler {
 
 	public void stop() {
 
-		cycle.set(1.0);
+		cycle.set(0.0);
 
 	}
 
