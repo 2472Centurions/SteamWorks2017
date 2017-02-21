@@ -14,8 +14,8 @@ public class drive extends Action {
 		l2 = new CANTalon(flm);
 		r1 = new CANTalon(brm);
 		r2 = new CANTalon(frm);
-		l1.setInverted(true);
-		l2.setInverted(true);
+		r1.setInverted(true);
+		r2.setInverted(true);
 	}
 
 	public void runMotor(int motor, double spped) {
@@ -46,10 +46,10 @@ public class drive extends Action {
 	}
 
 	public void tankDrive(Joystick ljoy, Joystick rjoy) {
-		l1.set(ljoy.getY());
-		l2.set(ljoy.getY());
-		r1.set(rjoy.getY());
-		r2.set(rjoy.getY());
+		l1.set(-ljoy.getY());
+		l2.set(-ljoy.getY());
+		r1.set(-rjoy.getY());
+		r2.set(-rjoy.getY());
 	}
 
 	public void setAllMotors(double spped) {

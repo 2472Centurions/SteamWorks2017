@@ -7,23 +7,23 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 import Objects.Action;
 import edu.wpi.first.wpilibj.Encoder;
 
-public class goDriveStraightDistance extends Action {
-
+public class goDriveBackStraightDistance extends Action {
+	
 	private double speed = 0.5;
 	private int distance = 159;
 	private boolean done;
 	IMUAdvanced imu;
 	Encoder motorEnc;
-	public goDriveStraightDistance(double time,IMUAdvanced i,Encoder e,int d, double s) {
+	public goDriveBackStraightDistance(double time,IMUAdvanced i,Encoder e,int d, double s) {
 		imu=i;
-		distance = d;
+		distance = -d;
 		motorEnc = e;
 		speed = s;
 		timeout = time;
 
 	}
 
-	public goDriveStraightDistance(double time, double speeed) {
+	public goDriveBackStraightDistance(double time, double speeed) {
 
 		timeout = time;
 
@@ -31,7 +31,7 @@ public class goDriveStraightDistance extends Action {
 
 	}
 
-	public goDriveStraightDistance(double time, double speeed, int distanceInches) {
+	public goDriveBackStraightDistance(double time, double speeed, int distanceInches) {
 
 		timeout = time;
 
@@ -49,7 +49,7 @@ public class goDriveStraightDistance extends Action {
 	}
 
 	public void periodic() {
-		if (motorEnc.getDistance() < distance) {
+		if (motorEnc.getDistance() > distance) {
 			if (imu.getYaw() > 0 ||imu.getYaw() == 0) {
 				/*
 				 * This formula takes the absolute value of yaw then subtracts
