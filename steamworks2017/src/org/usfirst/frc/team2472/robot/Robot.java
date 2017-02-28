@@ -5,7 +5,6 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 
 import Actions.GearPlace;
 import Actions.goDriveStraightDistance;
-import Actions.goOrientThySelf;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Climber;
@@ -37,13 +36,7 @@ public class Robot extends IterativeRobot {
 	String str;
 	UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
 	String Finals;
-<<<<<<< HEAD
-
-	SerialPort serial=new SerialPort(9600, SerialPort.Port.kUSB);
-
-=======
 	SerialPort serial=new SerialPort(9600, Port.kUSB1);
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 	public static drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 	public static Intake i = new Intake(Const.Intake);
 	public static Flywheel f = new Flywheel(Const.FWheel);
@@ -62,11 +55,7 @@ public class Robot extends IterativeRobot {
 	Joystick box = new Joystick(Const.box);
 	SerialPort serial_port;
 	byte update_rate_hz = 50;
-<<<<<<< HEAD
 	CamToSdash camera;
-=======
-	
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -143,13 +132,13 @@ public class Robot extends IterativeRobot {
 		// }
 
 		// else {
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	//	step.add(new goDriveStraightDistance(5.0));
 		//stepSecondary.add(new Action());
 		//step.add(null);
 	//	stepSecondary.add(null);
 
-=======
+//=======
 	/*	if(box.getRawButton(1)){
 			step.add(new goDriveStraightDistance(5.0,imu,motorEnc,79,.75));
 			stepSecondary.add(new Action());
@@ -188,7 +177,7 @@ public class Robot extends IterativeRobot {
 		}
 		
 */
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
+//>>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 		// }
 
 		if (step.size() > 0) {
@@ -209,7 +198,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-<<<<<<< HEAD
 		
 			getIt();
 			getIt();
@@ -219,14 +207,12 @@ public class Robot extends IterativeRobot {
 			getIt();
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
-=======
 		//for(int i=0;i<6;i++){
 		//	getIt();
 		//}
 		System.out.println(motorEnc.getDistance());
 		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
@@ -263,30 +249,18 @@ public class Robot extends IterativeRobot {
 		CameraServer.getInstance().addCamera(cam0);
 	}
 	public void teleopPeriodic() {
-<<<<<<< HEAD
 		//for(int i=0;i<6;i++){
 		//	getIt();
 		//}
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
-=======
-		
-		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
-		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 		//System.out.println(imu.getPitch());
 		//System.out.println(motorEnc.getDistance());
 		
 		d.tankDrive(joyl, joyr);
-<<<<<<< HEAD
-		if (gamepadController.getRawButton(5)) {
-
-			f.flywhlGo(1.0);
-=======
 		if (gamepadController.getRawButton(Const.buttonL)) {
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 
 			f.flywhlGo(.8);
 			System.out.println("running");
@@ -305,16 +279,6 @@ public class Robot extends IterativeRobot {
 			i.intakeStop();
 
 		}
-<<<<<<< HEAD
-		if (gamepadController.getRawButton(3)) {
-			cycler.cycleSpeed(.5);
-			
-		}
-		else if (gamepadController.getRawButton(4)) {
-			cycler.cycleSpeed(-.5);
-			
-		}else {
-=======
 		if (gamepadController.getRawButton(Const.buttonR)) {
 
 			cycler.cycleSpeed(-.15);
@@ -323,7 +287,6 @@ public class Robot extends IterativeRobot {
 			cycler.cycleSpeed(.15);
 		}
 		else {
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 
 			cycler.stop();
 
@@ -337,14 +300,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void testPeriodic() {
-<<<<<<< HEAD
 		camera.addCamera();
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
-=======
-//		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
-//		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 		
@@ -396,14 +354,7 @@ public class Robot extends IterativeRobot {
 		// WHOA TECHNOLOGY
 	}
 	public void getIt(){
-<<<<<<< HEAD
 	str=serial.readString(1);
-=======
-		
-		
-		
-		//str=serial.readString(1);
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 		//System.out.println("Trying to Read");
 		if(str!=null&&!str.equals("^")){
 			Finals += str;
@@ -437,13 +388,8 @@ public class Robot extends IterativeRobot {
 				System.out.println(tt[4]);
 				System.out.println(e);
 			}
-<<<<<<< HEAD
-		}else if(Finals.split(":").length==1){
-			OBJECT=false;
-=======
 		}else if(Finals.split(":").length==2){
 			pixyBlind=false;
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
 			
 		}
 		else{
