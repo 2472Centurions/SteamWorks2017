@@ -2,11 +2,12 @@ package Actions;
 
 import org.usfirst.frc.team2472.robot.Robot;
 
+import Constants.Const;
 import Objects.Action;
 
 public class rpm extends Action {
 
-	private double speed = 0.5;
+	private int speed = Const.shooterSpeed;
 	private double rpm;
 
 	public rpm(double time, double rpmTarget) {

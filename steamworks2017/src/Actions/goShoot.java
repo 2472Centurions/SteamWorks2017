@@ -4,12 +4,13 @@ import org.usfirst.frc.team2472.robot.Robot;
 
 import com.kauailabs.nav6.frc.IMU;
 
+import Constants.Const;
 import Objects.Action;
 import Subsystem.Flywheel;
 
 public class goShoot extends Action{
 	
-	private double speed = .75;
+	private int speed = Const.shooterSpeed;
 
 	public goShoot(double time) {
 
@@ -17,7 +18,7 @@ public class goShoot extends Action{
 
 	}
 
-	public goShoot(double time, double speeed) {
+	public goShoot(double time, int speeed) {
 
 		timeout = time;
 

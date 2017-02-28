@@ -28,9 +28,9 @@ public class Flywheel {
 		flywheelMotor.set(0.0);
 	}
 
-	public void flywhlGo(double s) {
+	public void flywhlGo(int s) {
 		flywheelMotor.changeControlMode(TalonControlMode.Speed);
-		flywheelMotor.set(6000);
+		flywheelMotor.set(s);
 		System.out.println(flywheelMotor.getError());
 
 	}

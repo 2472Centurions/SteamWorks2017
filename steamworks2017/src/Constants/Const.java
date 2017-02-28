@@ -2,7 +2,7 @@ package Constants;
 
 public class Const {
 	public static final String spped = "FAST";//we need this i promise
-/**drive motors*/
+	/**drive motors*/
 	public static final int BL = 14;
 	public static final int FL = 15;
 	public static final int BR = 2;
@@ -13,8 +13,10 @@ public class Const {
 	public static final int Intake = 13;
 	public static final int Cycler = 12;
 	
-	//This is half of the deadzone
-	public static final double deadZone = 2.0;
+	/**Full Speed on motor*/
+	public static final double fullSpeedForward = 1.0;
+	//Full Speed on motor
+	public static final int shooterSpeed = 5000;
 	/**encoder channels*/
 	public static final int motorEncChanA = 0;
 	public static final int motorEncChanB = 1;
