@@ -12,7 +12,7 @@ public class goTurnAngle extends Action {
 	private double speed = 0.8;
 	private double angle = 180.0;
 
-	public goTurnAngle(double time) {
+	public goTurnAngle(double time,int a) {
 
 		timeout = time;
 		angle = a;

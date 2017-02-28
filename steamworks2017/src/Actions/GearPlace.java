@@ -15,11 +15,11 @@ public class GearPlace extends Action {
 	Robot robot;
 	double speed;
 	AnalogInput dist;
-	
-	public GearPlace(BoxInfo l,BoxInfo r){
-		timeout=time;
+	IMUAdvanced imu;
+	public GearPlace(BoxInfo l,BoxInfo r,IMUAdvanced i,double sped,AnalogInput d){
+		dist =d;
 		speed=sped;
-	//	imu=i;
+		imu=i;
 		try{
 		left=l;
 		right=r;}
@@ -40,11 +40,9 @@ springPos=(left.getX()+right.getX())/2;
 
 	public void periodic() {
 		if(dist.getAverageValue()<2000)speed=0;
-<<<<<<< HEAD
+
 		if(!robot.OBJECT){
-=======
-		if(!Robot.pixyBlind){
->>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
+
 		springPos=(left.getX()+right.getX())/2;
 		
 		if(springPos<159){
