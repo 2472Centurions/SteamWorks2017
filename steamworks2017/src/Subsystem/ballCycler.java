@@ -3,31 +3,32 @@ package Subsystem;
 import com.ctre.CANTalon;
 
 public class ballCycler {
-	CANTalon cycleA, cycleB;
+	CANTalon cycle;
 
-	public ballCycler(int CAN, int CANB) {
+	public ballCycler(int CAN) {
 
-		cycleA = new CANTalon(CAN);
-		cycleB = new CANTalon(CANB);
+		cycle = new CANTalon(CAN);
+		
 
 	}
 
 	public void cycleIt() {
-		cycleA.set(1.0);
-		cycleB.set(1.0);
+
+
+		cycle.set(.5);
 
 	}
 
 	public void cycleSpeed(double spped) {
 
-		cycleA.set(spped);
-		cycleB.set(spped);
+		cycle.set(spped);
+		
 
 	}
 
 	public void stop() {
-		cycleA.set(0.0);
-		cycleB.set(0.0);
+
+		cycle.set(0.0);
 
 	}
 

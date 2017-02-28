@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	public String tt[];
-	public static boolean pixyBlind=true;
+	public static boolean pixyBlind = true;
 	BoxInfo BiL;
 	BoxInfo BiR;
 	AnalogInput distance;
@@ -36,7 +36,8 @@ public class Robot extends IterativeRobot {
 	String str;
 	UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();
 	String Finals;
-	SerialPort serial=new SerialPort(9600, Port.kUSB1);
+
+	// SerialPort serial = new SerialPort(9600, Port.kUSB1);
 	public static drive d = new drive(Const.FL, Const.FR, Const.BL, Const.BR);
 	public static Intake i = new Intake(Const.Intake);
 	public static Flywheel f = new Flywheel(Const.FWheel);
@@ -44,19 +45,19 @@ public class Robot extends IterativeRobot {
 	public static Encoder shooterEnc;
 	public static Climber climber;
 	public static ballCycler cycler;
-	//public IMUAdvanced imu;
+	public IMUAdvanced imu;
 	ArrayList<Action> step = new ArrayList<Action>();
 	ArrayList<Action> stepSecondary = new ArrayList<Action>();
 	int currentAction = 0;
-	public boolean OBJECT=true;
+	public boolean OBJECT = true;
 	Joystick gamepadController = new Joystick(Const.gpad);
 	Joystick joyl = new Joystick(Const.joyl);
 	Joystick joyr = new Joystick(Const.joyr);
 	Joystick box = new Joystick(Const.box);
-	SerialPort serial_port;
+	// SerialPort serial_port;
 	byte update_rate_hz = 50;
 	CamToSdash camera;
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -64,9 +65,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		//cam0=CameraServer.getInstance().startAutomaticCapture();
-		//cam0.setResolution(1600, 900);
-		//cam0.setFPS(30);
+		// cam0=CameraServer.getInstance().startAutomaticCapture();
+		// cam0.setResolution(1600, 900);
+		// cam0.setFPS(30);
 		SmartDashboard.putBoolean("IMU", true);
 		SmartDashboard.putBoolean("Motor Encoder", true);
 		SmartDashboard.putBoolean("Shooter Encoder", true);
@@ -74,7 +75,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Cycler", true);
 
 		try {
-			//serial_port = new SerialPort(57600, Port.kUSB);
+			// serial_port = new SerialPort(57600,Port.kUSB2);
+
 			System.out.print("Up 1");
 		} catch (Exception e) {
 			System.out.print(e);
@@ -82,7 +84,7 @@ public class Robot extends IterativeRobot {
 
 		}
 		try {
-			//imu = new IMUAdvanced(serial_port, update_rate_hz);
+			// imu = new IMUAdvanced(serial_port, update_rate_hz);
 			System.out.print("Up 2");
 		} catch (Exception e) {
 			System.out.print(e);
@@ -114,7 +116,7 @@ public class Robot extends IterativeRobot {
 
 		}
 		try {
-			cycler = new ballCycler(Const.CyclerA, Const.CyclerB);
+			cycler = new ballCycler(Const.Cycler);
 		} catch (Exception e) {
 			SmartDashboard.putBoolean("Cycler", false);
 		}
@@ -123,7 +125,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-		step.add(new GearPlace(BiL, BiR,.5,distance));
+		step.add(new GearPlace(BiL, BiR, imu, .5, distance));
 		stepSecondary.add(new Action());
 		// if (box.getRawButton(Const.boxButton1)) {
 
@@ -132,53 +134,6 @@ public class Robot extends IterativeRobot {
 		// }
 
 		// else {
-//<<<<<<< HEAD
-	//	step.add(new goDriveStraightDistance(5.0));
-		//stepSecondary.add(new Action());
-		//step.add(null);
-	//	stepSecondary.add(null);
-
-//=======
-	/*	if(box.getRawButton(1)){
-			step.add(new goDriveStraightDistance(5.0,imu,motorEnc,79,.75));
-			stepSecondary.add(new Action());
-			step.add(new goOrientThySelf(5.0,imu,60.0));
-			stepSecondary.add(new Action());
-			step.add(new goDriveStraightDistance(5.0,imu,motorEnc,24,.75));
-			stepSecondary.add(new Action());
-			step.add(null);
-			stepSecondary.add(null);
-		}
-		else if(box.getRawButton(2)){
-			step.add(new goOrientThySelf(5.0,imu,60.0));
-			stepSecondary.add(new Action());
-			step.add(null);
-			stepSecondary.add(null);
-		}
-		else if(box.getRawButton(3)){
-			step.add(new goDriveStraightDistance(5.0,imu,motorEnc,79,.75));
-			stepSecondary.add(new Action());
-			step.add(new goDriveStraightDistance(5.0,imu,motorEnc,24,.75));
-			stepSecondary.add(new Action());
-			step.add(null);
-			stepSecondary.add(null);
-		}
-		else if(box.getRawButton(4)){
-			step.add(new goDriveStraightDistance(10.0,imu,motorEnc,79,.5));
-			stepSecondary.add(new Action());
-			step.add(null);
-			stepSecondary.add(null);
-		}
-		else{
-			step.add(new goDriveStraightDistance(10.0,imu,motorEnc,79,.25));
-			stepSecondary.add(new Action());
-			step.add(null);
-			stepSecondary.add(null);
-		}
-		
-*/
-//>>>>>>> b217d0a9c4b8bce339f25aed85169be6a554bcc5
-		// }
 
 		if (step.size() > 0) {
 
@@ -198,21 +153,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		
-			getIt();
-			getIt();
-			getIt();
-			getIt();
-			getIt();
-			getIt();
+
+		getIt();
+		getIt();
+		getIt();
+		getIt();
+		getIt();
+		getIt();
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
-		//for(int i=0;i<6;i++){
-		//	getIt();
-		//}
-		System.out.println(motorEnc.getDistance());
-		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
-		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
@@ -243,26 +192,26 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
-	public void teleopInit(){
-		
-//		imu.zeroYaw();
+	public void teleopInit() {
+
+		// imu.zeroYaw();
 		CameraServer.getInstance().addCamera(cam0);
 	}
+
 	public void teleopPeriodic() {
-		//for(int i=0;i<6;i++){
-		//	getIt();
-		//}
-		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
-		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 		//System.out.println(imu.getPitch());
 		//System.out.println(motorEnc.getDistance());
 		
 		d.tankDrive(joyl, joyr);
-		if (gamepadController.getRawButton(Const.buttonL)) {
 
-			f.flywhlGo(.8);
+		if (gamepadController.getRawButton(5)) {
+
+			f.flywhlGo(1.0);
+
 			System.out.println("running");
 		}
 		else {
@@ -279,15 +228,13 @@ public class Robot extends IterativeRobot {
 			i.intakeStop();
 
 		}
-		if (gamepadController.getRawButton(Const.buttonR)) {
 
-			cycler.cycleSpeed(-.15);
+		if (gamepadController.getRawButton(Const.buttonX)) {
+			cycler.cycleSpeed(1.0);
+			
+		}else {
 
-		} else if (gamepadController.getRawButton(Const.buttonStart)){
-			cycler.cycleSpeed(.15);
-		}
-		else {
-
+	
 			cycler.stop();
 
 		}
@@ -295,20 +242,21 @@ public class Robot extends IterativeRobot {
 			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
 		} else {
 			climber.stop();
-		}
+		
 	}
+		}
 
 	@Override
 	public void testPeriodic() {
 		camera.addCamera();
-		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
-		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
-		
-		if (gamepadController.getAxis(AxisType.kTwist)>=.1){
+
+		if (gamepadController.getAxis(AxisType.kTwist) >= .1) {
 			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
-			//speeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed #fyast
+			// speeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed #fyast
 		}
 
 		if (gamepadController.getRawButton(Const.buttonA)) {
@@ -329,7 +277,7 @@ public class Robot extends IterativeRobot {
 
 		} else if (gamepadController.getRawButton(Const.buttonL)) {
 
-			f.flywhlGo(4000.0);
+			f.flywhlGo(1.0);
 
 		} else if (gamepadController.getRawButton(Const.buttonR)) {
 
@@ -339,10 +287,9 @@ public class Robot extends IterativeRobot {
 
 			climber.setSpeed(1.0);
 		} else if (gamepadController.getRawButton(Const.buttonStart)) {
-			
+
 			cycler.cycleSpeed(.001);
-		}
-			else {
+		} else {
 
 			d.stopMotors();
 			f.flywhlStop();
@@ -353,49 +300,46 @@ public class Robot extends IterativeRobot {
 
 		// WHOA TECHNOLOGY
 	}
-	public void getIt(){
-	str=serial.readString(1);
-		//System.out.println("Trying to Read");
-		if(str!=null&&!str.equals("^")){
+
+	public void getIt() {
+
+		//str = serial.readString(1);
+
+		// System.out.println("Trying to Read");
+		if (str != null && !str.equals("^")) {
 			Finals += str;
-		//	System.out.println("Collecting");
-		}
-		else if(Finals.split(":").length==9){
-			//System.out.println(finalS);
+			// System.out.println("Collecting");
+		} else if (Finals.split(":").length == 9) {
+			// System.out.println(finalS);
 			tt = Finals.split(":");
-			try{
-				
-				
-				tt[0]=tt[0].substring(2);
-				
-				if(Integer.parseInt(tt[0])>Integer.parseInt(tt[4])){
-					BiL = new BoxInfo(tt[4],tt[5],tt[6],tt[7]);
-					BiR = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
+			try {
+
+				tt[0] = tt[0].substring(2);
+
+				if (Integer.parseInt(tt[0]) > Integer.parseInt(tt[4])) {
+					BiL = new BoxInfo(tt[4], tt[5], tt[6], tt[7]);
+					BiR = new BoxInfo(tt[0], tt[1], tt[2], tt[3]);
+				} else if (Integer.parseInt(tt[0]) < Integer.parseInt(tt[4])) {
+					BiR = new BoxInfo(tt[4], tt[5], tt[6], tt[7]);
+					BiL = new BoxInfo(tt[0], tt[1], tt[2], tt[3]);
 				}
-				else if(Integer.parseInt(tt[0])<Integer.parseInt(tt[4])){
-					BiR = new BoxInfo(tt[4],tt[5],tt[6],tt[7]);
-					BiL = new BoxInfo(tt[0],tt[1],tt[2],tt[3]);
-				}
-				
+
 				System.out.println("Left Box X:" + BiL.getX());
 				System.out.println("Right Box X:" + BiR.getX());
-				springPos=(BiL.getX()+BiR.getX())/2;
-				//System.out.println("Width:" + tt[2]);
+				springPos = (BiL.getX() + BiR.getX()) / 2;
+				// System.out.println("Width:" + tt[2]);
 				Finals = "";
-			}
-			catch(Exception e){
+			} catch (Exception e) {
 				System.out.println(tt[0]);
 				System.out.println(tt[4]);
 				System.out.println(e);
 			}
-		}else if(Finals.split(":").length==2){
-			pixyBlind=false;
-			
-		}
-		else{
+		} else if (Finals.split(":").length == 1) {
+			OBJECT = false;
+
+		} else {
 			Finals = "";
 		}
-			
-		
+
 	}
 }

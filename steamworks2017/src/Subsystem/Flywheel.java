@@ -17,7 +17,7 @@ public class Flywheel {
 		flywheelMotor = new CANTalon(number);
 		flywheelMotor.setFeedbackDevice(FeedbackDevice.EncRising);
 		flywheelMotor.reverseSensor(false);
-		flywheelMotor.configNominalOutputVoltage(+0.0f, -0.0f);
+		flywheelMotor.configNominalOutputVoltage(0.0f, -0.0f);
 		flywheelMotor.configPeakOutputVoltage(12.0f, -12.0f);
 		flywheelMotor.setProfile(0);
 		flywheelMotor.setF(.1097);
@@ -26,16 +26,15 @@ public class Flywheel {
 
 		flywheelMotor.setD(0);
 		flywheelMotor.set(0.0);
-
 	}
 
-	public void flywhlGo(double spped) {
-		System.out.println(flywheelMotor.getEncVelocity());
-		// SmartDashboard.putDouble("speed of talon",flywheelMotor.getSpeed());
+	public void flywhlGo(double s) {
 		flywheelMotor.changeControlMode(TalonControlMode.Speed);
-		flywheelMotor.set(spped * 600);
+		flywheelMotor.set(6000);
+		System.out.println(flywheelMotor.getError());
 
 	}
+
 
 	public void flywhlStop() {
 		flywheelMotor.set(0.0);

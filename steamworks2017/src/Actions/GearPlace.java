@@ -15,17 +15,20 @@ public class GearPlace extends Action {
 	Robot robot;
 	double speed;
 	AnalogInput dist;
-
-	public GearPlace(BoxInfo l, BoxInfo r) {
-		timeout = time;
-		speed = sped;
-		// imu=i;
-		try {
-			left = l;
-			right = r;
-		} catch (Exception e) {
-
+	IMUAdvanced imu;
+	public GearPlace(BoxInfo l,BoxInfo r,IMUAdvanced i,double sped,AnalogInput d){
+		dist =d;
+		speed=sped;
+		imu=i;
+		try{
+		left=l;
+		right=r;}
+		catch(Exception e){
+			
+			
 		}
+
+		
 
 	}
 
@@ -35,10 +38,32 @@ public class GearPlace extends Action {
 	}
 
 	public void periodic() {
-		if (dist.getAverageValue() < 2000)
-			speed = 0;
-		if (!robot.OBJECT) {
-			springPos = (left.getX() + right.getX()) / 2;
+		if(dist.getAverageValue()<2000)speed=0;
+
+		if(!robot.OBJECT){
+
+		springPos=(left.getX()+right.getX())/2;
+		
+		if(springPos<159){
+			Robot.d.turn(1.0-(double)Math.pow(159-springPos/159,1/2)*speed,1.0*speed);
+			
+		}
+		if(springPos>=159){
+			
+			
+			Robot.d.turn(1.0,1.0-(double)Math.pow(159-springPos/springPos,1/2));
+		}
+	}else{
+		if (imu.getYaw() > 0 || imu.getYaw() == 0) {
+			/*
+			 * This formula takes the absloute value of yaw then subtratcs
+			 * 180. Next this number is put in a fracion of N/210. Next this
+			 * number * speed to get final speed. The final speed gets lower
+			 * the nearer the yaw is to zero
+			 */
+			Robot.d.turn((Math.abs(imu.getYaw() - 180) / 210.0) * speed, speed);
+			System.out.println("=>" + imu.getYaw() + "    " + (Math.abs(Math.abs(imu.getYaw()) - 180) / 210.0) * speed);
+		}
 
 			if (springPos < 159) {
 				Robot.d.turn(1.0 - (double) Math.pow(159 - springPos / 159, 1 / 2) * speed, 1.0 * speed);
@@ -48,7 +73,7 @@ public class GearPlace extends Action {
 
 				Robot.d.turn(1.0, 1.0 - (double) Math.pow(159 - springPos / springPos, 1 / 2));
 			}
-		} else {
+		} else {//what is
 			if (imu.getYaw() > 0 || imu.getYaw() == 0) {
 				/*
 				 * This formula takes the absloute value of yaw then subtratcs
