@@ -7,7 +7,7 @@ import Subsystem.drive;
 
 public class goBackward extends Action{
 	
-	private double speed = -0.75;
+	private double speed = 0.75;
 	
 	public goBackward(double time) {
 
@@ -28,10 +28,10 @@ public class goBackward extends Action{
 		super.startAction();
 
 	}
-
+	//Move backwards at negative desired speed
 	public void periodic() {
 		
-		 Robot.d.setAllMotors(speed);
+		 Robot.d.setAllMotors(-speed);
 		
 		}
 	

@@ -27,15 +27,15 @@ public class Flywheel {
 		flywheelMotor.setD(0);
 		flywheelMotor.set(0.0);
 	}
-
-	public void flywhlGo(int s) {
+	//Runs flywheel at desired rpm
+	public void flywhlGo(int rpm) {
 		flywheelMotor.changeControlMode(TalonControlMode.Speed);
-		flywheelMotor.set(s);
+		flywheelMotor.set(rpm);
 		System.out.println(flywheelMotor.getError());
 
 	}
 
-
+	//Stops flywheel
 	public void flywhlStop() {
 		flywheelMotor.set(0.0);
 	}

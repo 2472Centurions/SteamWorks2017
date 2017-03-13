@@ -3,6 +3,7 @@ package Subsystem;
 import com.ctre.CANTalon;
 
 public class ballCycler {
+	
 	CANTalon cycle;
 
 	public ballCycler(int CAN) {
@@ -12,6 +13,7 @@ public class ballCycler {
 
 	}
 
+	//runs cycler at .5 power
 	public void cycleIt() {
 
 
@@ -19,6 +21,8 @@ public class ballCycler {
 
 	}
 
+	//breathe
+	//set cycle power to a set number
 	public void cycleSpeed(double spped) {
 
 		cycle.set(spped);
@@ -26,6 +30,7 @@ public class ballCycler {
 
 	}
 
+	//stops cycler
 	public void stop() {
 
 		cycle.set(0.0);

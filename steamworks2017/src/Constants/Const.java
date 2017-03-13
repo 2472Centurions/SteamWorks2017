@@ -12,10 +12,8 @@ public class Const {
 	public static final int FWheel = 1;
 	public static final int Intake = 13;
 	public static final int Cycler = 12;
-	
 	/**Full Speed on motor*/
 	public static final double fullSpeedForward = 1.0;
-	//Full Speed on motor
 	public static final int shooterSpeed = 5000;
 	/**encoder channels*/
 	public static final int motorEncChanA = 0;
@@ -38,4 +36,9 @@ public class Const {
 	public static final int buttonR = 6;
 	public static final int buttonBack = 7;
 	public static final int buttonStart = 8;
+	/**Camera Values*/
+	public static final int cameraCenter = 159;
+	public static final int finalDistance = 2000;
+	/**IMU Values*/
+	public static final double yawFactor = 210.0
 }

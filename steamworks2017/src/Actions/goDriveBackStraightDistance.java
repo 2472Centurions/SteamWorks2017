@@ -4,6 +4,7 @@ import org.usfirst.frc.team2472.robot.Robot;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
+import Constants.Const;
 import Objects.Action;
 import edu.wpi.first.wpilibj.Encoder;
 
@@ -44,31 +45,33 @@ public class goDriveBackStraightDistance extends Action {
 	public void startAction() {
 
 		super.startAction();
-		imu.zeroYaw();
+		if(imu!=null)imu.zeroYaw();
 		motorEnc.reset();
 	}
-
+	
 	public void periodic() {
-		if (motorEnc.getDistance() > distance) {
-			if (imu.getYaw() > 0 ||imu.getYaw() == 0) {
+		if(imu==null){
+			 Robot.d.setAllMotors(speed);
+			 return;
+			}
+		if (motorEnc.getDistance() < distance) {
+			if (imu.getYaw() >= 0) {
 				/*
 				 * This formula takes the absolute value of yaw then subtracts
-				 * 180. Next this number is put in a fraction of N/210. Next this
+				 * 180. Next this number is put in a fraction of N/yaw factor (210.0). Next this
 				 * number * speed to get final speed. The final speed gets lower
 				 * the nearer the yaw is to zero
 				 */
-				Robot.d.turn((Math.abs(imu.getYaw() - 180) / 210.0) * speed, speed);
+				Robot.d.turn((Math.abs(imu.getYaw() - 180) / Const.yawFactor) * speed, speed);
 				System.out.println(motorEnc.getDistance());
-			}
-
-			if (imu.getYaw() < 0) {
+			}else {
 				/*
-				 * This formula takes the abslote value of yaw than adds 180.
-				 * Next this number is put in a fracion of N/210. Next this
+				 * This formula takes the absolute value of yaw than adds 180.
+				 * Next this number is put in a fraction of N/yaw factor (210.0). Next this
 				 * number * speed to get final speed. The final speed gets lower
 				 * the nearer the yaw is to zero
 				 */
-				Robot.d.turn(speed, Math.abs(imu.getYaw() + 180) / 210.0 * speed);
+				Robot.d.turn(speed, Math.abs(imu.getYaw() + 180) / Const.yawFactor * speed);
 				System.out.println(motorEnc.getDistance());
 			}
 		}

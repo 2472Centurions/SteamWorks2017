@@ -13,13 +13,13 @@ public class Intake{
     	intakeMotor = new CANTalon(stillMaybeAnumber);
     	
     }
-    
+    //Runs intake a desired power
     public void intakeGo(double spped){
     	
     	intakeMotor.set(spped);
     	
     }
-    
+    //Stops intake motor
     public  void intakeStop(){
     	intakeMotor.set(0.0);
     }

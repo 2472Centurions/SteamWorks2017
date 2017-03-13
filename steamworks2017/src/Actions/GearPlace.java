@@ -5,6 +5,7 @@ import org.usfirst.frc.team2472.robot.Robot;
 
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
+import Constants.Const;
 import Objects.Action;
 import edu.wpi.first.wpilibj.AnalogInput;
 
@@ -28,25 +29,29 @@ public class GearPlace extends Action {
 		super.startAction();
 		springPos = (left.getX() + right.getX()) / 2;
 	}
-
+	//If gear spring not in center of vision, orient to spring, else drive straight until at minimum distance
 	public void periodic() {
-		if(dist.getAverageValue()<2000)speed=0;
-
+		//If robot is at the final distance, it is done 
+		if(dist.getAverageValue()<Const.finalDistance)speed=0.0;
+		
+		//If pixy not blind drive towards spring target
 		if(!robot.pixyBlind){
 
-		springPos=(left.getX()+right.getX())/2;
+			springPos=(left.getX()+right.getX())/2;
 		
-		if(springPos<159){
-			Robot.d.turn(1.0-(double)Math.pow(159-springPos/159,1/2)*speed,1.0*speed);
+			if(springPos<Const.cameraCenter){
+			Robot.d.turn(1.0-(double)Math.pow(Const.cameraCenter-springPos/Const.cameraCenter,1/2)*speed,1.0*speed);
 			
-		}
-		if(springPos>=159){
+			}
+			if(springPos>=Const.cameraCenter){
 			
 			
-			Robot.d.turn(1.0,1.0-(double)Math.pow(159-springPos/springPos,1/2));
-		}
-	
-		} else {//what is
+			Robot.d.turn(1.0,1.0-(double)Math.pow(Const.cameraCenter-springPos/springPos,1/2));
+			}
+			
+		}//If pixy blind drive straight. 
+		else {
+			
 			if (imu.getYaw() > 0 || imu.getYaw() == 0) {
 				/*
 				 * This formula takes the absloute value of yaw then subtratcs
@@ -78,5 +83,21 @@ public class GearPlace extends Action {
 		Robot.d.stopMotors();
 
 	}
+	public boolean isFinished(){
+		
+		if(isTimedOut()||speed==0.0){
+			
+			endAction();
+			
+			return true;
+			
+		}
+		
+		else{
+		
+			return false;
+			
+		}
 
+	}
 }
