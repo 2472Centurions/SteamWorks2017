@@ -8,7 +8,6 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 import Objects.Action;
 
 public class goTurnAngle extends Action {
-	IMUAdvanced imu;
 	private double speed = 0.8;
 	private double angle = 180.0;
 
@@ -30,21 +29,22 @@ public class goTurnAngle extends Action {
 	public void startAction() {
 
 		super.startAction();
-		imu.zeroYaw();
+		if(Robot.imu!=null)Robot.imu.zeroYaw();
 	}
 
 	public void periodic() {
 		//Creates a fraction of the (target angle-yaw)/target angle. and the other side is the reverse.
 		//The closer the robot is to the target angle the slower it moves.
+		if(Robot.imu==null)return;
 		if (angle > 0) {
 
-			Robot.d.turn((((angle - imu.getYaw())/angle) * speed)+.01, (((angle - imu.getYaw())/angle) * -speed)-.01);
-			System.out.println(imu.getYaw() + "     " + ((angle - imu.getYaw())/angle) * speed);
+			Robot.d.turn((((angle - Robot.imu.getYaw())/angle) * speed)+.01, (((angle - Robot.imu.getYaw())/angle) * -speed)-.01);
+			System.out.println(Robot.imu.getYaw() + "     " + ((angle - Robot.imu.getYaw())/angle) * speed);
 		}
 		if (angle < 0) {
 
-			Robot.d.turn((((angle - imu.getYaw())/angle) * -speed)-.01, (((angle - imu.getYaw())/angle) * speed)+.01);
-			System.out.println(imu.getYaw() + "     " + ((angle + imu.getYaw())/angle) * speed);
+			Robot.d.turn((((angle - Robot.imu.getYaw())/angle) * -speed)-.01, (((angle - Robot.imu.getYaw())/angle) * speed)+.01);
+			System.out.println(Robot.imu.getYaw() + "     " + ((angle + Robot.imu.getYaw())/angle) * speed);
 		}
 	}
 
@@ -56,7 +56,7 @@ public class goTurnAngle extends Action {
 
 	public boolean isFinished() {
 
-		if (isTimedOut()) {
+		if (isTimedOut()||Math.abs(angle - Robot.imu.getYaw())<5) {
 
 			endAction();
 

@@ -52,7 +52,7 @@ public class Robot extends IterativeRobot {
 	public static Encoder shooterEnc;
 	
 	//Creates IMU
-	public IMUAdvanced imu;
+	public static IMUAdvanced imu;
 	
 	//Auto ArrayList
 	ArrayList<Action> step = new ArrayList<Action>();
@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
 	Joystick joyr = new Joystick(Const.joyr);
 	Joystick box = new Joystick(Const.box);
 	
-	// SerialPort IMUserial_port;//IMU serial port
+	SerialPort IMUserial_port;//IMU serial port
 	byte IMUupdate_rate_hz = 50;//IMU update rate
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -90,14 +90,14 @@ public class Robot extends IterativeRobot {
 
 		//try catch field to set-up Subsystems, encoders, and IMU
 		try {
-			// IMUserial_port = new SerialPort(57600,Port.kUSB2);
+			IMUserial_port = new SerialPort(57600,Port.kUSB2);
 			System.out.print("Up 1");
 		} catch (Exception e) {
 			System.out.print(e);
 			SmartDashboard.putBoolean("IMU", false);
 		}
 		try {
-			// imu = new IMUAdvanced(IMUserial_port, update_rate_hz);
+			imu = new IMUAdvanced(IMUserial_port, IMUupdate_rate_hz);
 			System.out.print("Up 2");
 		} catch (Exception e) {
 			System.out.print(e);
