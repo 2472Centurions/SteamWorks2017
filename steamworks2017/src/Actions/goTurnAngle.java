@@ -12,10 +12,10 @@ public class goTurnAngle extends Action {
 	private double speed = 0.8;
 	private double angle = 180.0;
 
-	public goTurnAngle(double time,int a) {
+	public goTurnAngle(double time,int turnAngle) {
 
 		timeout = time;
-		angle = a;
+		angle = turnAngle;
 
 	}
 
@@ -34,7 +34,8 @@ public class goTurnAngle extends Action {
 	}
 
 	public void periodic() {
-		// Set one side to (angle-yaw)/angle. It sets the other to
+		//Creates a fraction of the (target angle-yaw)/target angle. and the other side is the reverse.
+		//The closer the robot is to the target angle the slower it moves.
 		if (angle > 0) {
 
 			Robot.d.turn((((angle - imu.getYaw())/angle) * speed)+.01, (((angle - imu.getYaw())/angle) * -speed)-.01);

@@ -23,7 +23,8 @@ public class rpm extends Action {
 		super.startAction();
 
 	}
-
+	//will print out current rpm and the current power sent to fly wheel to console
+	//Works by ajuting power sent to motors until it matches desired rpm.
 	public void periodic() {
 		Robot.f.flywhlGo(speed);
 		if (Robot.shooterEnc.getRate() < rpm) {
