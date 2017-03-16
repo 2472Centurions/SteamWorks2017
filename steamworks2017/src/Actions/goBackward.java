@@ -9,12 +9,13 @@ public class goBackward extends Action{
 	
 	private double speed = 0.75;
 	
+	/**set amount of time to backward (as dubs)*/
 	public goBackward(double time) {
 
 		timeout = time;
 
 	}
-
+	/**goes backward for a set time at a set speed*/
 	public goBackward(double time, double speeed) {
 
 		timeout = time;
@@ -22,13 +23,13 @@ public class goBackward extends Action{
 		speed = speeed;
 
 	}
-
+	
 	public void startAction() {
 		
 		super.startAction();
 
 	}
-	//Move backwards at negative desired speed
+	/**Move backwards at negative desired speed*/
 	public void periodic() {
 		
 		 Robot.d.setAllMotors(-speed);

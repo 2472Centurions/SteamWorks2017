@@ -11,13 +11,14 @@ public class goTurnAngle extends Action {
 	private double speed = 0.8;
 	private double angle = 180.0;
 
+	/**sets time and angle(int) (in that order)*/
 	public goTurnAngle(double time,int turnAngle) {
 
 		timeout = time;
 		angle = turnAngle;
 
 	}
-
+	/**sets time and angle(double) (in that order)*/
 	public goTurnAngle(double time, double turnAngle) {
 
 		timeout = time;

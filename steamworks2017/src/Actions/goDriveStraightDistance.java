@@ -23,7 +23,7 @@ public class goDriveStraightDistance extends Action {
 		timeout = time;
 
 	}
-
+	/**sets time and speeed (in that order)*/
 	public goDriveStraightDistance(double time, double speeed) {
 
 		timeout = time;
@@ -31,7 +31,7 @@ public class goDriveStraightDistance extends Action {
 		speed = speeed;
 
 	}
-
+	/**sets time, speeed, and distance in inches (in that order)*/
 	public goDriveStraightDistance(double time, double speeed, int distanceInches) {
 
 		timeout = time;

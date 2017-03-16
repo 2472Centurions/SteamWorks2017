@@ -5,6 +5,7 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 
 import Actions.GearPlace;
 import Actions.goDriveStraightDistance;
+import Actions.goForward;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Climber;
@@ -283,6 +284,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
+		//controller controls
 		if (gamepadController.getAxis(AxisType.kTwist) >= .1) {
 			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
 		}
@@ -313,7 +315,7 @@ public class Robot extends IterativeRobot {
 		// WHOA TECHNOLOGY
 	}
 
-	//Collects Info From pixy Cam
+	/**Collects Info From pixy Cam*/
 	public void getIt() {
 
 		//serialFeed = serial.readString(1);

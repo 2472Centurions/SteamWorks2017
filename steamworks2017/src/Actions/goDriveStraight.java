@@ -26,6 +26,16 @@ public class goDriveStraight extends Action {
 		speed = speeed;
 
 	}
+	
+	public goDriveStraight(double time, double speeed, IMUAdvanced i) {
+		
+		timeout = time;
+
+		speed = speeed;
+		
+		imu=i;
+
+	}
 
 	public void startAction() {
 

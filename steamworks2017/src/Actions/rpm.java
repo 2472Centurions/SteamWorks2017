@@ -10,6 +10,7 @@ public class rpm extends Action {
 	private int speed = Const.shooterSpeed;
 	private double rpm;
 
+	/**sets time and rpm*/
 	public rpm(double time, double rpmTarget) {
 
 		timeout = time;
@@ -24,7 +25,7 @@ public class rpm extends Action {
 
 	}
 	//will print out current rpm and the current power sent to fly wheel to console
-	//Works by ajuting power sent to motors untill it ma
+	//Works by adjusting power sent to motors until it matches target RPM
 	public void periodic() {
 		Robot.f.flywhlGo(speed);
 		if (Robot.shooterEnc.getRate() < rpm) {

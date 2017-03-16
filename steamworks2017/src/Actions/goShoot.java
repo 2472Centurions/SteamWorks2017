@@ -12,12 +12,13 @@ public class goShoot extends Action{
 	
 	private int speed = Const.shooterSpeed;
 
+	/**sets time*/
 	public goShoot(double time) {
 
 		timeout = time;
 
 	}
-
+	/**sets time and speed (in that order)*/
 	public goShoot(double time, int speeed) {
 
 		timeout = time;

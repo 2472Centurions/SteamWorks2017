@@ -10,13 +10,13 @@ public class goForward extends Action{
 	
 	private double speed = 0.5;
 	
-
+	/**sets time*/
 	public goForward(double time) {
 
 		timeout = time;
 
 	}
-
+	/**sets time and speed (in that order)*/
 	public goForward(double time, double speeed) {
 
 		timeout = time;
