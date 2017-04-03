@@ -41,4 +41,6 @@ public class Const {
 	public static final int finalDistance = 2000;
 	/**IMU Values*/
 	public static final double yawFactor = 210.0;
+	
+	public static final double roboDiameter = 27.5;
 }

@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	public static ballCycler cycler;
 	
 	//Creates Encoders for the drive wheel and shooter
-	public Encoder motorEnc;
+	public static Encoder motorEnc;
 	public static Encoder shooterEnc;
 	
 	//Creates IMU
