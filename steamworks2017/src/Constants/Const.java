@@ -40,5 +40,5 @@ public class Const {
 	public static final int cameraCenter = 159;
 	public static final int finalDistance = 2000;
 	/**IMU Values*/
-	public static final double yawFactor = 210.0
+	public static final double yawFactor = 210.0;
 }
