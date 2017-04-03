@@ -16,8 +16,10 @@ public class Const {
 	public static final double fullSpeedForward = 1.0;
 	public static final int shooterSpeed = 5000;
 	/**encoder channels*/
-	public static final int motorEncChanA = 0;
-	public static final int motorEncChanB = 1;
+	public static final int motorEnc1ChanA = 0;
+	public static final int motorEnc1ChanB = 1;
+	public static final int motorEnc2ChanA = 0;
+	public static final int motorEnc2ChanB = 1;
 	public static final int shooterEncChanA = 3;
 	public static final int shooterEncChanB = 4;
 	/**controller ports*/
@@ -41,6 +43,6 @@ public class Const {
 	public static final int finalDistance = 2000;
 	/**IMU Values*/
 	public static final double yawFactor = 210.0;
-	
-	public static final double roboDiameter = 27.5;
+	/**Robot Dimensions*/
+	public static final double wheelBaseDiameter = 27.5;
 }

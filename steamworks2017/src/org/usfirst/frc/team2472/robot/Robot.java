@@ -49,7 +49,8 @@ public class Robot extends IterativeRobot {
 	public static ballCycler cycler;
 	
 	//Creates Encoders for the drive wheel and shooter
-	public static Encoder motorEnc;
+	public static Encoder motorEnc1;
+	public static Encoder motorEnc2;
 	public static Encoder shooterEnc;
 	
 	//Creates IMU
@@ -105,12 +106,18 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putBoolean("IMU", false);
 		}
 		try {
-			motorEnc = new Encoder(Const.motorEncChanA, Const.motorEncChanB, false, Encoder.EncodingType.k4X);
-			motorEnc.setReverseDirection(true);
-			motorEnc.setDistancePerPulse(.053);
+			motorEnc1 = new Encoder(Const.motorEnc1ChanA, Const.motorEnc1ChanB, false, Encoder.EncodingType.k4X);
+			motorEnc1.setReverseDirection(true);
+			motorEnc1.setDistancePerPulse(.053);
 		} catch (Exception e) {
 			System.out.print(e);
 			SmartDashboard.putBoolean("Motor Encoder", false);
+		}
+		try {
+			motorEnc2 = new Encoder(Const.motorEnc2ChanA, Const.motorEnc2ChanB, false, Encoder.EncodingType.k4X);
+			motorEnc2.setDistancePerPulse(.053);
+		} catch (Exception e) {
+			System.out.print(e);
 		}
 		try {
 			shooterEnc = new Encoder(Const.shooterEncChanA, Const.shooterEncChanB, false, Encoder.EncodingType.k4X);
@@ -199,7 +206,7 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard Display Values
 		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
-		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Motor Speed", motorEnc1.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
 		//Cycles through the steps and stops when it finds a null
@@ -243,7 +250,7 @@ public class Robot extends IterativeRobot {
 		if(imu!=null){
 			SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		}
-		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Motor Speed", motorEnc1.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 		
 		//Controls Drive with Joysticks
@@ -281,7 +288,7 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
-		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
+		SmartDashboard.putNumber("Motor Speed", motorEnc1.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
 		//controller controls

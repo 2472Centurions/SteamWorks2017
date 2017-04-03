@@ -27,7 +27,7 @@ public class goEncoderTurn extends Action {
 	}
 
 	public void startAction() {
-		
+		Robot.motorEnc1.reset();
 		super.startAction();
 		//Is the length of the sector that we want to turn
 		arcSectorDistance = (Const.wheelBaseDiameter*3.1415926)*(turnAngle/360);
@@ -35,9 +35,9 @@ public class goEncoderTurn extends Action {
 
 	public void periodic() {
 		
-		if(Robot.motorEnc.getDistance()<arcSectorDistance){
+		if(Robot.motorEnc1.getDistance()<arcSectorDistance){
 			
-			Robot.d.setAllMotors(((arcSectorDistance-Robot.motorEnc.getDistance())/arcSectorDistance)+0.01);
+			Robot.d.setAllMotors(((arcSectorDistance-Robot.motorEnc1.getDistance())/arcSectorDistance)+0.01);
 		
 		}else done = true;
 	}
