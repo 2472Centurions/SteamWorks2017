@@ -9,6 +9,11 @@ public class BoxInfo {
 		w = ww;
 	
 	}
+	public BoxInfo(String xx, String yy){
+		x = xx;
+		y = yy;
+		
+	}
 	public int getX(){
 		return Integer.parseInt(x);
 	}

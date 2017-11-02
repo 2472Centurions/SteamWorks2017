@@ -5,6 +5,9 @@ import com.kauailabs.nav6.frc.IMUAdvanced;
 
 import Actions.GearPlace;
 import Actions.goDriveStraightDistance;
+import Actions.goTurnAngle;
+import Actions.newTurn;
+import Actions.turnWithEnc;
 import Constants.Const;
 import Objects.Action;
 import Subsystem.Climber;
@@ -18,6 +21,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.IterativeRobot;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -28,15 +32,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	public String tt[];//Pixy buffer string
-	public boolean pixyBlind = true;//see if pixy can see
+	public static boolean noBoxes = true;//see if pixy can see
 	BoxInfo BiL;//pixy camera box information
 	BoxInfo BiR;
+	BoxInfo ShootAttempt;
 	int springPos;//pixy midpoint for boxes
 	String serialFeed;//initial string for pixy info
 	String Finals;//Final string for pixy info
-	// SerialPort arduinoSerial = new SerialPort(9600, Port.kMXP);//Serial port for the arduino
+	//SerialPort arduinoSerial = new SerialPort(9600, Port.kUSB);//Serial port for the arduino
 	
-	AnalogInput distance;//distance sensor
+	AnalogInput dist=new AnalogInput(0);//distance sensor
 	
 	UsbCamera cam0 = CameraServer.getInstance().startAutomaticCapture();//Runs a picture on usb camera
 
@@ -45,14 +50,15 @@ public class Robot extends IterativeRobot {
 	public static Intake i;
 	public static Flywheel f;
 	public static Climber climber;
+	
 	public static ballCycler cycler;
 	
 	//Creates Encoders for the drive wheel and shooter
-	public Encoder motorEnc;
+	public Encoder motorEnc,motorEncREVERSE;
 	public static Encoder shooterEnc;
 	
 	//Creates IMU
-	public IMUAdvanced imu;
+	//IMUAdvanced imu;
 	
 	//Auto ArrayList
 	ArrayList<Action> step = new ArrayList<Action>();
@@ -65,7 +71,7 @@ public class Robot extends IterativeRobot {
 	Joystick joyr = new Joystick(Const.joyr);
 	Joystick box = new Joystick(Const.box);
 	
-	// SerialPort IMUserial_port;//IMU serial port
+	//SerialPort IMUserial_port = new SerialPort(57600, Port.kUSB);//IMU serial port
 	byte IMUupdate_rate_hz = 50;//IMU update rate
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -75,7 +81,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		
 		//Camera set-up
-		cam0.setResolution(1600, 900);
+		cam0.setResolution(160, 90);
 		cam0.setFPS(30);
 		
 		//SmartDashboard Booleans
@@ -90,23 +96,26 @@ public class Robot extends IterativeRobot {
 
 		//try catch field to set-up Subsystems, encoders, and IMU
 		try {
-			// IMUserial_port = new SerialPort(57600,Port.kUSB2);
+		//	IMUserial_port = new SerialPort(57600,Port.kUSB);
 			System.out.print("Up 1");
 		} catch (Exception e) {
 			System.out.print(e);
 			SmartDashboard.putBoolean("IMU", false);
 		}
 		try {
-			// imu = new IMUAdvanced(IMUserial_port, update_rate_hz);
+	//		imu = new IMUAdvanced(IMUserial_port, IMUupdate_rate_hz);
 			System.out.print("Up 2");
 		} catch (Exception e) {
 			System.out.print(e);
 			SmartDashboard.putBoolean("IMU", false);
 		}
 		try {
-			motorEnc = new Encoder(Const.motorEncChanA, Const.motorEncChanB, false, Encoder.EncodingType.k4X);
+			motorEnc = new Encoder(Const.motorEncZERO, Const.motorEncONE, false, Encoder.EncodingType.k4X);
 			motorEnc.setReverseDirection(true);
-			motorEnc.setDistancePerPulse(.053);
+			motorEnc.setDistancePerPulse(.05357);
+		//	motorEncREVERSE = new Encoder(Const.motorEncTWO,Const.motorEncTHREE, false, Encoder.EncodingType.k4X);
+		//	motorEncREVERSE.setReverseDirection(true);
+		//	motorEncREVERSE.setDistancePerPulse(.05357);
 		} catch (Exception e) {
 			System.out.print(e);
 			SmartDashboard.putBoolean("Motor Encoder", false);
@@ -154,15 +163,38 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		//Fills auto with step according to which switch is active
 		if (box.getRawButton(Const.boxButton1)) {
-
+			step.add(new goDriveStraightDistance(5.0,motorEnc,80,.2));
+			stepSecondary.add(new Action());
+			step.add(new turnWithEnc(2.25,.35,60,motorEnc));
+			stepSecondary.add(new Action());
+			step.add(new goDriveStraightDistance(5.0,motorEnc,47,.15));
+			stepSecondary.add(new Action());
 			step.add(null);
 			stepSecondary.add(null);
 		}else if (box.getRawButton(Const.boxButton2)) {
-
+			//center gear
+			System.out.println("2nd auto");
+			step.add(new goDriveStraightDistance(5.0,motorEnc,80,.2));
+			stepSecondary.add(new Action());
 			step.add(null);
 			stepSecondary.add(null);
-		}else{
-			step.add(new GearPlace(BiL, BiR, imu, .5, distance));
+		}else if(box.getRawButton(Const.boxButton3)){
+			//right gear
+			step.add(new goDriveStraightDistance(5.0,motorEnc,85,.2));
+			stepSecondary.add(new Action());
+			step.add(new turnWithEnc(2.25,.35,-80,motorEnc));
+			stepSecondary.add(new Action());
+			step.add(new goDriveStraightDistance(5.0,motorEnc,50,.15));
+			stepSecondary.add(new Action());
+			step.add(null);
+			stepSecondary.add(null);
+		}
+		else{
+			step.add(new goDriveStraightDistance(5.0,motorEnc,80,.2));
+			stepSecondary.add(new Action());
+			step.add(new goTurnAngle(5.0,-60.0,motorEnc,0.5));
+			stepSecondary.add(new Action());
+			step.add(new goDriveStraightDistance(5.0,motorEnc,47,.2));
 			stepSecondary.add(new Action());
 			step.add(null);
 			stepSecondary.add(null);
@@ -181,25 +213,23 @@ public class Robot extends IterativeRobot {
 
 	}
 
+	
+
 	/**
 	 * This function is called periodically during autonomous
 	 */
 
 	@Override
 	public void autonomousPeriodic() {
-		//Pulls one char out of pixy
-		getIt();
-		getIt();
-		getIt();
-		getIt();
-		getIt();
-		getIt();
+		System.out.println(motorEnc.getDistance());
+		//Plls one char out of pixy
+	
 		
 		//SmartDashboard Display Values
-		SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
-		SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
-		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
-		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
+		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
+		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
+		SmartDashboard.putNumber("Motor Speed", motorEnc.getDistance());
+	///	SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
 
 		//Cycles through the steps and stops when it finds a null
 		if (step.size() > 0 && step.get(currentAction) != null) {
@@ -234,22 +264,27 @@ public class Robot extends IterativeRobot {
 		// imu.zeroYaw();
 		
 		//adds camera to SmartDasboard
-		CameraServer.getInstance().addCamera(cam0);
+	//	CameraServer.getInstance().addCamera(cam0);
 	}
 
 	public void teleopPeriodic() {
 		//SmartDashboard and Console Values 
-		if(imu!=null){
-			SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
-		}
+	
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
-		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
+		//SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
+		System.out.println(motorEnc.getDistance());
+		//System.out.println(motorEncREVERSE.getDistance());
 		
 		//Controls Drive with Joysticks
-		d.tankDrive(joyl, joyr);
-
+		// d.tankDrive(joyl , joyr);
+		
+		//New drive.
+		d.XBoxDrive(gamepadController);
+		
+	/*	
 		if (gamepadController.getRawButton(Const.buttonL)) {
 			f.flywhlGo(Const.shooterSpeed);
+			
 			System.out.println("running");
 		}
 		else {
@@ -270,23 +305,32 @@ public class Robot extends IterativeRobot {
 		}
 		if (gamepadController.getAxis(AxisType.kTwist)>=.1){
 			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
-		} 
+		}
+		else if(gamepadController.getRawAxis(3)>=.1){
+			climber.setSpeed(-gamepadController.getRawAxis(3));
+		}
+		else if(gamepadController.getRawButton(Const.buttonY)){
+			climber.setSpeed(.3);
+		}
 		else {
 			climber.stop();
 		}
+		*/
+	
 	}
-
 	@Override
 	public void testPeriodic() {
+		//System.out.println(imu.getYaw());
 		//SmartDashboard.putNumber("IMU Yaw", imu.getYaw());
 		//SmartDashboard.putNumber("IMU Pitch", imu.getPitch());
 		SmartDashboard.putNumber("Motor Speed", motorEnc.getRate());
 		SmartDashboard.putNumber("Shooter Speed", shooterEnc.getRate());
-
+		//System.out.println(motorEnc.getDistance());
+		System.out.println(motorEncREVERSE.getDistance());
 		if (gamepadController.getAxis(AxisType.kTwist) >= .1) {
 			climber.setSpeed(gamepadController.getAxis(AxisType.kTwist));
 		}
-		if (gamepadController.getRawButton(Const.buttonA)) {
+		else if (gamepadController.getRawButton(Const.buttonA)) {
 			d.runBL();
 		} else if (gamepadController.getRawButton(Const.buttonB)) {
 			d.runFL();
@@ -316,12 +360,14 @@ public class Robot extends IterativeRobot {
 	//Collects Info From pixy Cam
 	public void getIt() {
 
-		//serialFeed = serial.readString(1);
+	//serialFeed = arduinoSerial.readString(1);
+		
+		
 
-		// System.out.println("Trying to Read");
+		System.out.println("Trying to Read");
 		if (serialFeed != null && !serialFeed.equals("^")) {
 			Finals += serialFeed;
-			// System.out.println("Collecting");
+			System.out.println("Collecting");
 		} else if (Finals.split(":").length == 9) {
 			// System.out.println(finalS);
 			tt = Finals.split(":");
@@ -340,17 +386,23 @@ public class Robot extends IterativeRobot {
 				System.out.println("Left Box X:" + BiL.getX());
 				System.out.println("Right Box X:" + BiR.getX());
 				springPos = (BiL.getX() + BiR.getX()) / 2;
-				// System.out.println("Width:" + tt[2]);
+				System.out.println("Width:" + tt[2]);
 				Finals = "";
+				noBoxes = false;
 			} catch (Exception e) {
 				System.out.println(tt[0]);
 				System.out.println(tt[4]);
 				System.out.println(e);
 			}
-		} else if (Finals.split(":").length == 1) {
-			pixyBlind = false;
+		} else if (Finals.split(":").length != 9&&Finals.split(":").length!=3||BiL==null||BiR==null) {
+			noBoxes = true;
 
-		} else {
+		}else if(Finals.split(":").length == 2){
+			ShootAttempt=new BoxInfo(tt[0],tt[1]);
+			
+		}
+		
+		else {
 			Finals = "";
 		}
 

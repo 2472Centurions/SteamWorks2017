@@ -30,7 +30,7 @@ public class Climber {
 	//Moves the climber at desired power
 	public void setSpeed(double spped) {
 
-		climb.set(spped);
+		climb.set(-spped);
 
 	}
 }

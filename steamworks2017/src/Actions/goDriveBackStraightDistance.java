@@ -15,8 +15,8 @@ public class goDriveBackStraightDistance extends Action {
 	private boolean done;
 	IMUAdvanced imu;
 	Encoder motorEnc;
-	public goDriveBackStraightDistance(double time,IMUAdvanced i,Encoder e,int d, double s) {
-		imu=i;
+	public goDriveBackStraightDistance(double time,Encoder e,int d, double s) {
+	
 		distance = -d;
 		motorEnc = e;
 		speed = s;

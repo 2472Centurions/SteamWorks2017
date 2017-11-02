@@ -6,21 +6,28 @@ import org.usfirst.frc.team2472.robot.Robot;
 import com.kauailabs.nav6.frc.IMUAdvanced;
 
 import Objects.Action;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class goTurnAngle extends Action {
-	IMUAdvanced imu;
 	private double speed = 0.8;
 	private double angle = 180.0;
-
+	double turnFactor;
+	int speedFactor=10;
+	
+	double roboDiameter=89.53275;
+	double arcLength;
+	Encoder enc;
+	/**sets time and angle(int) (in that order)*/
 	public goTurnAngle(double time,int turnAngle) {
 
 		timeout = time;
 		angle = turnAngle;
-
+		
 	}
-
-	public goTurnAngle(double time, double turnAngle) {
-
+	
+	public goTurnAngle(double time, double turnAngle, Encoder e,double sped) {
+		enc=e;
+		speed=sped;
 		timeout = time;
 
 		angle = turnAngle;
@@ -28,23 +35,25 @@ public class goTurnAngle extends Action {
 	}
 
 	public void startAction() {
-
+		
 		super.startAction();
-		imu.zeroYaw();
+		
+		enc.reset();
+		arcLength=roboDiameter*(Math.abs(angle/360));
 	}
 
 	public void periodic() {
-		//Creates a fraction of the (target angle-yaw)/target angle. and the other side is the reverse.
-		//The closer the robot is to the target angle the slower it moves.
-		if (angle > 0) {
-
-			Robot.d.turn((((angle - imu.getYaw())/angle) * speed)+.01, (((angle - imu.getYaw())/angle) * -speed)-.01);
-			System.out.println(imu.getYaw() + "     " + ((angle - imu.getYaw())/angle) * speed);
-		}
-		if (angle < 0) {
-
-			Robot.d.turn((((angle - imu.getYaw())/angle) * -speed)-.01, (((angle - imu.getYaw())/angle) * speed)+.01);
-			System.out.println(imu.getYaw() + "     " + ((angle + imu.getYaw())/angle) * speed);
+		 if(Math.abs(arcLength-enc.getDistance())>speedFactor){
+		turnFactor=Math.pow((1/(arcLength-enc.getDistance())),1/2);
+		if(angle>0)Robot.d.turn(-(speed-(turnFactor*speed)),speed-(turnFactor*speed));
+		if(angle<0)Robot.d.turn(speed-(turnFactor*speed),-(speed-(turnFactor*speed)));
+		 }
+		else if(Math.abs(arcLength-enc.getDistance())<speedFactor&&speedFactor>0)
+		{
+			
+			
+			speed=speed*.9;
+			speedFactor--;
 		}
 	}
 

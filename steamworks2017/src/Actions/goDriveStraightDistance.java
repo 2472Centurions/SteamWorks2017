@@ -15,8 +15,8 @@ public class goDriveStraightDistance extends Action {
 	private boolean done;
 	IMUAdvanced imu;
 	Encoder motorEnc;
-	public goDriveStraightDistance(double time,IMUAdvanced i,Encoder e,int d, double s) {
-		imu=i;
+	public goDriveStraightDistance(double time,Encoder e,int d, double s) {
+		
 		distance = d;
 		motorEnc = e;
 		speed = s;
@@ -34,13 +34,10 @@ public class goDriveStraightDistance extends Action {
 
 	public goDriveStraightDistance(double time, double speeed, int distanceInches) {
 
-		timeout = time;
-
-		speed = speeed;
-
-		distance = distanceInches;
+		
 
 	}
+
 
 	public void startAction() {
 
@@ -50,12 +47,13 @@ public class goDriveStraightDistance extends Action {
 	}
 
 	public void periodic() {
-		if(imu==null){
-			 Robot.d.setAllMotors(speed);
-			 return;
-			}
+		
 		if (motorEnc.getDistance() < distance) {
-			if (imu.getYaw() >= 0) {
+			if(imu==null){
+				 Robot.d.setAllMotors(speed);
+				 System.out.println("NO IMU");
+				}
+			else if (imu.getYaw() >= 0) {
 				/*
 				 * This formula takes the absolute value of yaw then subtracts
 				 * 180. Next this number is put in a fraction of N/yaw factor (210.0). Next this
